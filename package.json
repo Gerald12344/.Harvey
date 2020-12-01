@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Gerald12344/.HarveyLanguage#readme",
   "dependencies": {
     "javascript-obfuscator": "^2.9.4",
+    "pretty-error": "^2.1.2",
     "winston-color": "^1.0.0"
   }
 }

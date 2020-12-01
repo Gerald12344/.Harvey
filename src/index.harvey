@@ -5,6 +5,13 @@
   <sendOut <concat array <itterate i>>>
   >
 >
+<writeFile <string "hello.json"> <string "HIIII!!!"> err <body
+  <sendOut err>
+>>
+
+<openFile <string "hello.json"> response error <body
+  <sendOut response>
+>>
 
 <sayHello <string hello>>
 

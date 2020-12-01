@@ -1,5 +1,9 @@
 {
   "plugins": [
+    {"case":"openFile","file":"HS5/openFile.js"},
+    {"case":"writeFile","file":"HS5/writeFile.js"},
+
     {"case":"sayHello","file":"example.js"}
+    
   ]
 }

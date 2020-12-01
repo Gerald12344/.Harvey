@@ -1,10 +1,7 @@
 {
-   "debug":false,
+   "debug":true,
    "version":"v1",
    "evalOnCompile":true,
-
-   "pluginsFolder":"plugins",
-   "pluginsSettings": "plugins.json",
 
    "outputFolder":"dist",
    "outputFileName":"index.js",
@@ -13,5 +10,12 @@
    "debugFile":true,
    "debugFileName":"debug.js",
    "debugFileLocation":"debug",
-   "obuscateOutput":true
+   "obuscateOutput":true,
+
+   "pluginsFolder":"plugins",
+   "pluginsSettings": "plugins.json",
+
+   "dependencies": {
+    "Basic-Control": "^1.0"
+  }
 }

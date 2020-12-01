@@ -1,6 +1,8 @@
-
+let fs = require("fs")
 let array = [1,2,3,4,5,6,7,8,9]
 for(let i=0;i<array.length;i=i+1){{console.log(array[i])}}
+fs.writeFileSync('hello.json','HIIII!!!',(err)=>{console.log(err)});
+fs.readFileSync('hello.json','utf8',(response,error)=>{console.log(response)});
 console.log('hello', 'hello')
 
 let TOKEN = 'TOKEN'
