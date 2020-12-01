@@ -1,0 +1,17 @@
+{
+   "debug":false,
+   "version":"v1",
+   "evalOnCompile":true,
+
+   "pluginsFolder":"plugins",
+   "pluginsSettings": "plugins.json",
+
+   "outputFolder":"dist",
+   "outputFileName":"index.js",
+   "inputFolder":"src",
+   "inputFile":"index.harvey",
+   "debugFile":true,
+   "debugFileName":"debug.js",
+   "debugFileLocation":"debug",
+   "obuscateOutput":true
+}

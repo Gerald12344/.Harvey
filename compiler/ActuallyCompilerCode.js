@@ -1,0 +1,495 @@
+'use strict';
+//Please don't steal took ages
+
+//Big thanks to the https://github.com/jamiebuilds/the-super-tiny-compiler for insipration and help with the tokeniser and paser and other parts.
+
+var logger = require("winston-color");
+let fs = require('fs')
+let settings = require("../harveySettings.json")
+let commands = {}
+
+function tokenizer(input) {
+  let current = 0;
+  let previous = ''
+  let tokens = [];
+
+  while (current < input.length) {
+    let char = input[current];
+    if (char === '<') {
+      tokens.push({
+        type: 'paren',
+        value: '<',
+      });
+      current++;
+      continue;
+    }
+    if (char === '=') {
+      tokens.push({
+        type: 'paren',
+        value: '=',
+      });
+      current++;
+      continue;
+    }
+
+    if (char === '>') {
+      tokens.push({
+        type: 'paren',
+        value: '>',
+      });
+      current++;
+      continue;
+    }
+
+    let WHITESPACE = /\s/;
+    if (WHITESPACE.test(char)) {
+      current++;
+      continue;
+    }
+    let NUMBERS = /[0-9]/;
+    if (NUMBERS.test(char)) {
+      let value = '';
+      while (NUMBERS.test(char)) {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'number', value });
+      continue;
+    }
+    if (char === '"') {
+      let value = '';
+      char = input[++current];
+      while (char !== '"') {
+        value += char;
+        char = input[++current];
+      }
+      char = input[++current];
+      tokens.push({ type: 'string', value });
+
+      continue;
+    }
+
+
+    let LETTERS = /[a-z]/i;
+    if (LETTERS.test(char) || char === '.') {
+      let value = '';
+      while (LETTERS.test(char) || char === '.') {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'name', value });
+
+      continue;
+    }
+    logger.error('Yikes, I dont know what this character is: ' + char);
+    process.exit(1)
+  }
+
+  return tokens;
+}
+function parser(tokens) {
+  let current = 0;
+  function walk() {
+    let token = tokens[current];
+
+    if (token.type === 'name') {
+      current++;
+      return {
+        type: 'StringLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'number') {
+      current++;
+      return {
+        type: 'NumberLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'string') {
+      current++;
+
+      return {
+        type: 'StringLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'paren' && token.value === '=') {
+      token = tokens[++current];
+      let node = {
+        type: 'CallExpression',
+        name: token.value,
+        params: [],
+      };
+    }
+    if (
+      token.type === 'paren' &&
+      token.value === '<'
+    ) {
+      token = tokens[++current];
+      let node = {
+        type: 'CallExpression',
+        name: token.value,
+        params: [],
+      };
+      token = tokens[++current];
+
+      while (
+        (token.type !== 'paren') ||
+        (token.type === 'paren' && token.value !== '>')
+      ) {
+        node.params.push(walk());
+        token = tokens[current];
+      }
+      current++;
+      return node;
+    }
+    logger.error(token.type);
+    process.exit(1)
+  }
+  let ast = {
+    type: 'Program',
+    body: [],
+  };
+
+  while (current < tokens.length) {
+    ast.body.push(walk());
+  }
+  return ast;
+}
+
+
+function traverser(ast, visitor) {
+  function traverseArray(array, parent) {
+    array.forEach(child => {
+      traverseNode(child, parent);
+    });
+  }
+
+  function traverseNode(node, parent) {
+    let methods = visitor[node.type];
+    if (methods && methods.enter) {
+      methods.enter(node, parent);
+    }
+
+    switch (node.type) {
+      case 'Program':
+        traverseArray(node.body, node);
+        break;
+      case 'CallExpression':
+        traverseArray(node.params, node);
+        break;
+      case 'NumberLiteral':
+      case 'StringLiteral':
+        break;
+
+      default:
+        logger.error(node.type);
+        process.exit(1)
+    }
+
+    if (methods && methods.exit) {
+      methods.exit(node, parent);
+    }
+  }
+  traverseNode(ast, null);
+}
+
+
+
+function transformer(ast) {
+  let newAst = {
+    type: 'Program',
+    body: [],
+  };
+
+  ast._context = newAst.body;
+
+  traverser(ast, {
+    NumberLiteral: {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'NumberLiteral',
+          value: node.value,
+        });
+      },
+    },
+
+    StringLiteral: {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'StringLiteral',
+          value: node.value,
+        });
+      },
+    },
+
+    CallExpression: {
+      enter(node, parent) {
+
+
+        let expression = {
+          type: 'CallExpression',
+          callee: {
+            type: 'Identifier',
+            name: node.name,
+          },
+          arguments: [],
+        };
+        node._context = expression.arguments;
+
+        if (parent.type !== 'CallExpression') {
+          expression = {
+            type: 'ExpressionStatement',
+            expression: expression,
+          };
+        }
+        parent._context.push(expression);
+      },
+    }
+  });
+  return newAst;
+}
+
+function codeGenerator(node) {
+  switch (node.type) {
+
+    case 'Program':
+      return node.body.map(codeGenerator)
+        .join('\n');
+    case 'ExpressionStatement':
+      return (
+        codeGenerator(node.expression)
+      );
+
+    case 'CallExpression':
+      switch (node.callee.name) {
+        case 'add':
+          return (node.arguments.map(codeGenerator).join(' + '))
+        case 'subtract':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' - ') + ')')
+        case 'mutiply':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' * ') + ')')
+        case 'divide':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' / ') + ')')
+        case 'if':
+          let ifStuff = node.arguments.map(codeGenerator)
+          ifStuff.splice(0, 1).join(',')
+          ifStuff.forEach((e, i) => {
+            if ((i + 1) === ifStuff.length) return;
+            ifStuff[i] = e.replace('"', '').replace('"', '')
+          })
+          let lasts = ifStuff[ifStuff.length - 1]
+          ifStuff.splice(ifStuff.length - 1, 1)
+          return (`if(${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}){${lasts}}`)
+        case 'call':
+          let propses = node.arguments.map(codeGenerator)
+          propses.splice(0, 1).join(',')
+
+          return (`${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}(${propses})`)
+        case 'function':
+          let propss = node.arguments.map(codeGenerator)
+          propss.splice(0, 1).join(',')
+          propss.forEach((e, i) => {
+            if ((i + 1) === propss.length) return;
+            propss[i] = e.replace('"', '').replace('"', '')
+          })
+          let last = propss[propss.length - 1]
+          propss.splice(propss.length - 1, 1)
+          return (`function ${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}(${propss.join(',')}){${last}}`)
+        case 'Arrowfunc':
+          let propsss = node.arguments.map(codeGenerator)
+          propsss.forEach((e, i) => {
+            propsss[i] = e.replace('"', '').replace('"', '')
+          })
+          let lastest = propsss[propsss.length - 1]
+          propsss.splice(propsss.length - 1, 1)
+          return (`(${propsss.join(',')}) => {${(node.arguments.map(codeGenerator)[node.arguments.map(codeGenerator).length - 1])}}`)
+        case 'sendOut':
+
+          let inputs = (node.arguments.map(codeGenerator)[0]);
+          if (node.arguments.map(codeGenerator).includes('args')) {
+            let args = node.arguments.map(codeGenerator).unshift()
+            return (`console.log(${inputs}(${args.join(',')}))`)
+          } else {
+            return (`console.log(${inputs})`)
+          }
+        case 'else':
+          return (`else{${node.arguments.map(codeGenerator)}}`)
+        case 'promise':
+          let promiseArray = node.arguments.map(codeGenerator)
+          promiseArray.splice(0, 2)
+          return (`return(new Promise((${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}, ${node.arguments.map(codeGenerator)[1].replace('"', '').replace('"', '')}) => {${promiseArray.join(';')}}))`)
+
+        case 'iNeed':
+          return (`require(${node.arguments.map(codeGenerator)})`)
+        case 'iWant':
+          let data = fs.readFileSync(node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''), 'utf-8')
+          let response = CompiledOtherFiles(data)
+          return (response)
+        case 'async':
+          return (`async ${node.arguments.map(codeGenerator)}`)
+        case 'wait':
+          return (`await ${node.arguments.map(codeGenerator)}`)
+        case 'new':
+          return (`new ${node.arguments.map(codeGenerator)}`)
+
+        case 'letsmake':
+          let inputing = (node.arguments.map(codeGenerator)[1]);
+          return (`let ${(node.arguments.map(codeGenerator)[0]).replace('"', '').replace('"', '')} = ${inputing}`)
+
+
+        case 'if':
+          return (`if(${node.arguments.map(codeGenerator)[0]})`)
+        case 'after':
+          return (`.then(${node.arguments.map(codeGenerator)[0]})`)
+        case 'error':
+          return (`.catch(${node.arguments.map(codeGenerator)[0]})`)
+        case 'reply':
+          return (`return(${node.arguments.map(codeGenerator)[0]})`)
+        case 'innerLoop':
+          return (`{${node.arguments.map(codeGenerator)[0]}}`)
+        case 'body':
+          return (`${node.arguments.map(codeGenerator).join(';')}`)
+        case 'var':
+          return (node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''))
+        case 'return':
+          return ('return')
+        case 'ToNumber':
+          return (node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''))
+        case 'equal':
+          return (`${node.arguments.map(codeGenerator)[0]} === ${node.arguments.map(codeGenerator)[1]}`)
+        case 'notequal':
+          return (`!(${node.arguments.map(codeGenerator)[0]} === ${node.arguments.map(codeGenerator)[1]})`)
+        case 'and':
+          return (`${node.arguments.map(codeGenerator)[0]} && ${node.arguments.map(codeGenerator)[1]}`)
+        case 'true':
+          return (true)
+        case 'false':
+          return (false)
+        case 'loop':
+          let using = node.arguments.map(codeGenerator)
+          let lastes = using[using.length - 1]
+          let variable = node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')
+          return (`for(let ${variable}=0;${variable}<${node.arguments.map(codeGenerator)[1]};${variable}=${variable}+${node.arguments.map(codeGenerator)[2]}){${lastes}}`)
+        case 'get':
+          return (`document.getElementById(${node.arguments.map(codeGenerator)})`)
+        case 'assign':
+          return (`${node.arguments.map(codeGenerator)[0]} = ${node.arguments.map(codeGenerator)[1]}`)
+        case 'string':
+          return (`'${node.arguments.map(codeGenerator)}'`)
+        case 'array':
+          return (`[${node.arguments.map(codeGenerator).join(',')}]`)
+        case 'itterate':
+          return (`[${node.arguments.map(codeGenerator)}]`)
+        case 'concat':
+          return (`${node.arguments.map(codeGenerator).join('')}`)
+      }
+      if(!(commands[node.callee.name] === undefined)){
+        return commands[node.callee.name].Command(node.arguments.map(codeGenerator))
+      }
+      
+    case 'Identifier':
+      return node.name;
+
+    case 'NumberLiteral':
+      return node.value;
+    case 'StringLiteral':
+      return node.value;
+
+    default:
+      logger.error(node.type);
+      process.exit(1)
+  }
+}
+
+function CompiledOtherFiles(input) {
+  let tokens = tokenizer(input);
+  let ast = parser(tokens);
+  let newAst = transformer(ast);
+  let output = codeGenerator(newAst);
+  return output
+}
+
+function loadPlugins(){
+  let pluginSettings = require(`../${settings.pluginsFolder}/${settings.pluginsSettings}`)
+  pluginSettings.plugins.forEach(element => {
+    commands[element.case] = require(`../${settings.pluginsFolder}/${element.file}`)
+  })
+}
+
+var JavaScriptObfuscator = require('javascript-obfuscator');
+function compiler(input) {
+  if (settings.debug) {
+    logger.debug(`Loading Plugins`)
+  }
+  loadPlugins()
+
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[                       ]')
+  if (settings.debug) {
+    logger.debug(`Tokenizing please hang on...`)
+  }
+  let tokens = tokenizer(input);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[======                 ]')
+  if (settings.debug) {
+    logger.debug(`Parsing please hang on...`)
+  }
+  let ast = parser(tokens);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[============           ]')
+  if (settings.debug) {
+    logger.debug(`Transforming please hang on...`)
+  }
+  let newAst = transformer(ast);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[==================     ]')
+  if (settings.debug) {
+    logger.debug(`Generating Code please hang on...`)
+  }
+  let output = codeGenerator(newAst);
+
+  let headers = require('./niceStuff.json')
+
+  if (settings.debugFile === true) {
+    fs.writeFileSync(`./${settings.outputFolder}/${settings.debugFileLocation}/${settings.debugFileName}`, (output), (err) => {
+      logger.error('Yikes, Error writing to debug file.');
+      process.exit(1)
+    })
+  }
+  let MainOut = output
+  if (settings.obuscateOutput) {
+    MainOut = JavaScriptObfuscator.obfuscate(output)
+  }
+
+  fs.writeFileSync(`./${settings.outputFolder}/${settings.outputFileName}`, headers.headers + '\n* Harvey Programming Compiled Stuff, you touch you break \n* For lisencing and for copy right stuff please check the legal stuff below \n* This is the compiled file and is optimised and obuscated if you want to see the compiled source code look at CompiledJS.js \n* --[[Code will start soon I promise]]-- \n* Look away its hard to understand. \n*/\n' + MainOut, (err) => {
+    logger.error('Yikes, Error writing to ouput file.');
+    process.exit(1)
+  });
+  console.log('\x1b[34m', 'Code Compiled.');
+  console.log('\x1b[36m', '[=======================]');
+  return output
+
+}
+fs.readFile(`./${settings.inputFolder}/${settings.inputFile}`, 'utf8', async (err, data) => {
+  let input = data
+  let CompiledJS = await compiler(input)
+  if (settings.evalOnCompile) {
+    logger.warn(`Running with in a eval loop() for production builds please use ./${settings.outputFolder}/${settings.outputFileName}`)
+    if (settings.debug) {
+      logger.debug('To change this go to the harveySettings.json file and set evalOnFinish to false');
+    }
+    if (settings.debug) {
+      logger.info('-----------------------[Compiler Successfull]-----------------------')
+      logger.debug(`Thank you for using the .Harvey Programming Language. Happy Hacking.`)
+      logger.debug(`Compiler competely successfully now attempting to run the code.`)
+      logger.info('--------------------------------------------------------------------')
+    }
+    eval(CompiledJS);
+  }
+
+})
