@@ -1,0 +1,61 @@
+<function MathsQuiz <body
+  <"Set up variables">
+  <letsmake Operator <itterate <array <string "+"> <string "-">> <call Math.round <Multiply <call Math.random> 1>>>>
+  <letsmake firstNum <call Math.round <Multiply <call Math.random> 10>>>
+  <letsmake secondNum <call Math.round <Multiply <call Math.random> 10>>>
+  <letsmake yourScore 0>
+
+  <letsmake guess <string "">>
+
+  <call element <string "h1"> <add firstNum Operator secondNum> 
+  <string "Question"> <string "body">>
+  <call element <string "h2"> <add <string "Your score is "> <var yourScore>> 
+  <string "Score"> <string "body">>
+
+   <"Form data">
+  <call element <string "input"> <string ""> <string "QuestionBox"> <string "body">>
+  <call element <string "button"> <string "Submit"> <string "QuestionSubmit"> <string "body">>
+
+  <"Your guess">
+  <call element <string "h1"> <string "your guess: "> <string "Debug"> <string "body"> <string "guess">>
+
+  <function WorkOutAnswer <body
+    <if <equal Operator <string "+">> <body
+      <if <equal <Num guess> <add firstNum secondNum>> <body
+        <assign yourScore <add yourScore 1>>
+      >>
+    >>
+    <if <equal Operator <string "-">> <body
+      <if <equal <Num guess> <subtract firstNum secondNum>> <body
+        <assign yourScore <add yourScore 1>>
+      >>
+    >>
+    <assign Operator <itterate <array <string "+"> <string "-">> <call Math.round <Multiply <call Math.random> 1>>>>
+    <assign firstNum <call Math.round <Multiply <call Math.random> 10>>>
+    <assign secondNum <call Math.round <Multiply <call Math.random> 10>>>
+
+    <call updateText <string "Question"> <add firstNum Operator secondNum>> 
+    <call updateText <string "Score"> <add <string "Your score is "> <var yourScore>>>
+    <call updateText <string "QuestionSubmit"> <string "Submit">>
+    <call updateText <string "QuestionBox"> <string ""> <true>>
+    <call updateText <string "Debug"> <string "your guess: ">>
+  >>
+
+  <"Monitor Input box">
+  <call MontiorInputs <string "QuestionBox"> <string "keydown"> <Arrowfunc value key    
+    <body
+      <assign guess <var value>>
+      <call updateText <string "Debug"> <add <string "your guess: "> <var value>>>
+      <if <equal key <string "Enter">> <body
+        <call WorkOutAnswer>
+    >>
+  >>>
+
+  <"monitor submit button">
+  <call MontiorInputs <string "QuestionSubmit"> <string "click"> <Arrowfunc value
+    <body
+      <call WorkOutAnswer>
+    >
+  >>
+
+>>

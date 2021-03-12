@@ -1,0 +1,23 @@
+<function element type text id parent className <body
+  <letsmake newElement <call document.createElement type>>
+  <if <equal <call document.getElementById <var id>> null> <body 
+    <assign newElement.innerHTML <var text>>
+    <assign newElement.id <var id>>
+    <letsmake FoundParent <call document.getElementById parent>>
+    <call FoundParent.appendChild <var newElement>>
+  >>
+  <if <notequal <call document.getElementById <var id>> null> <body 
+    <assign newElement.innerHTML text>
+  >>
+  <if <notequal className "undefined"> <body
+    <assign newElement.className className>
+  >>
+>>
+
+<function updateText id text wipeValue <body
+  <letsmake Node <call document.getElementById id>>
+  <assign Node.innerHTML text>
+  <if wipeValue <body
+    <assign Node.value text>
+  >>
+>>

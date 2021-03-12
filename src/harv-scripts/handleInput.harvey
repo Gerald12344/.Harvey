@@ -1,0 +1,8 @@
+<function MontiorInputs item reason functionToCall <body
+  <letsmake textInput <get <var item>>>
+  <listen textInput <var reason> <function input input <body
+    <TimeOut 5 <function test <body
+      <call <var functionToCall> input.target.value input.key>
+    >>>
+  >>>
+>>

@@ -1,0 +1,35 @@
+<letsmake colors <array <string "red"> <string "blue"> <string "green">>>
+<letsmake i 0>
+<letsmake hello <get <string "element">>>
+<letsmake text <string "this changes">>
+
+<"
+<interval <function input
+  <body
+    <if <equal <var i> 3> <body 
+      <assign <var i> 0>
+    >>
+    <letsmake hello <get <string "element">>>
+    <assign hello.style.color <itterate colors i>>
+    <assign i <add i 1>>
+  >>
+50>
+">
+
+<function PageTest <body
+  <"This is the main route that rerenders with a variable change">
+
+  <call element <string "h1"> <var text> <string "MainText"> <string "body">>
+>>
+
+
+<"
+<call MontiorInputs <string "inputbox"> <string "keydown"> <Arrowfunc value    <body
+    <letsmake textlabel <get <string "textlabel">>>
+    <assign hello.innerHTML <add <Num value> 5>>
+    <assign text <var value>>
+    <call RenderCycle>
+  >
+>>
+<call RenderCycle>
+">

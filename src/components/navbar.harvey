@@ -1,0 +1,5 @@
+<function ConstantElements <body
+  <call Link <string "/"> <string "HomePage"> <string "1"> <string "body"> <string "nav-button"> >
+  <call Link <string "/pages"> <string "pages"> <string "5"> <string "body"> <string "nav-button"> >
+  <call Link <string "/mathsQuiz"> <string "Maths Quiz"> <string "50"> <string "body"> <string "nav-button"> >
+>>

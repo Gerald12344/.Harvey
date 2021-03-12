@@ -1,76 +1,26 @@
-<"Very Simple code for itterating through a array">
+<"Harv FrameWork Scripts">
+<iWant "./src/harv-scripts/index.harvey">
 
-<letsmake array <array 1 2 3 4 5 6 7 8 9>> 
-<loop "i" array.length 1 <innerLoop 
-  <sendOut <concat array <itterate i>>>
-  >
->
-<writeFile <string "hello.json"> <string "HIIII!!!"> err <body
-  <sendOut err>
+<"Components">
+<iWant "./src/components/index.harvey">
+<iWant "./src/components/navbar.harvey">
+<iWant "./src/components/Mathsquiz.harvey">
+<iWant "./src/components/homepage.harvey">
+
+
+<function RouterRoot <body
+  <call ConstantElements>
+
+  <"Router points">
+  <call RouterPoint <string "/pages"> <true> <var PageTest>>
+  <call RouterPoint <string "/mathsQuiz"> <true> <var MathsQuiz>>
+  <call RouterPoint <string "/"> <true> <var Homepage>>
 >>
 
-<openFile <string "hello.json"> response error <body
-  <sendOut response>
->>
 
-<sayHello <string hello>>
+<"First Render (whatever the current url is)">
+<call RouterRoot>
 
-<"because I am lazy this will be comments, they will be compiled so need to fix that, optimiser should remove">
-<letsmake TOKEN <string "TOKEN" >>
-<letsmake Discord <iNeed <string "discord.js">>>
-<letsmake client <new <call Discord.Client>>>
 
-<call client.on "ready" <function data <body 
-    <sendOut <add <string Current Logged in as > <var client.user.username> <string "#"> <var client.user.discriminator>>>
-    <sendOut <add "Current in " <var client.guilds.cache.size <sring servers> >>>
->>>
-
-<call client.on "message" <async <Arrowfunc message 
-    <body 
-        <if <and <equal message.content "hello"> <equal <ToNumber message.author.bot> <false>>>
-            <body 
-                <call message.reply "hello">
-            >
-        >
-    >
->>>
-
-<letsmake functionIWant <Arrowfunc input secondInput <body 
-    <sendOut <var input>>
-    <sendOut <var secondInput>>
->>>
-
-<letsmake AsyncFunction <async <Arrowfunc input <body
-    <sendOut <var input>>
->>>>
-
-<call functionIWant <string "hello"> <string "Second Input"> >
-<call AsyncFunction "async" >
-<after <Arrowfunc input <body <sendOut  "done">>>>
-<error <Arrowfunc input <body <sendOut <add <string "There was a error "> <var input>>>>>>
-
-<letsmake Newer "hello">
-
-<function hello input <body <reply <var input>>>>
-
-<letsmake PromiseMaker <Arrowfunc input <body
-    <promise resolve reject <body
-    <sendOut <var input>>
-    <if <equal <var input> "'hello'"> <body
-        <call reject <string "Not going to lie there is a errror">>
-    >>
-     <if <notequal <var input> "'hello'"> <body
-        <call resolve>
-    >>
-    >>
->>>
-<letsmake reponse <call PromiseMaker <string "hello">>>
-<error <Arrowfunc input <body <sendOut <add <string"There was a error "> <var input>>>>>>
-<call PromiseMaker <string "anything else">>
-<error <Arrowfunc input <body <sendOut <add <string "There was a error "> <var input>>>>>>
-<after <Arrowfunc input <body <sendOut <string "Promises successful">>>>>
-
-  <call PromiseMaker <string "hello">>
-<after <Arrowfunc input <body <sendOut  <string "Promises successful">>>>>
-<error <Arrowfunc input <body <sendOut <add <string"There was a error "> <var input>>>>>>
-<call client.login <var TOKEN>>
+<"Montior Window Object for changes">
+<call WindowMonitor <var RouterRoot>>

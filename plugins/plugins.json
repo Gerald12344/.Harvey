@@ -1,9 +1,41 @@
 {
   "plugins": [
-    {"case":"openFile","file":"HS5/openFile.js"},
-    {"case":"writeFile","file":"HS5/writeFile.js"},
+    {
+      "case": "openFile",
+      "file": "HS5/openFile.js"
+    },
+    {
+      "case": "writeFile",
+      "file": "HS5/writeFile.js"
+    },
+    {
+      "case": "While",
+      "file": "HS5/whileLoop.js"
+    },
+    {
+      "case": "interval",
+      "file": "HS5/interval.js"
+    },
+    {
+      "case": "listen",
+      "file": "HS5/eventListener.js"
+    },
+    {
+      "case": "TimeOut",
+      "file": "HS5/Timeout.js"
+    },
+    {
+      "case": "Num",
+      "file": "HS5/num.js"
+    },
+    {
+      "case": "Multiply",
+      "file": "HS5/multiply.js"
+    },
 
-    {"case":"sayHello","file":"example.js"}
-    
+    {
+      "case": "sayHello",
+      "file": "example.js"
+    }
   ]
 }

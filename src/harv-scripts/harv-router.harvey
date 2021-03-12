@@ -1,0 +1,31 @@
+<function WindowMonitor ReturnFunc <body
+  <assign history.move <Arrowfunc body <body
+    <letsmake Root document.body>
+    <assign Root.innerHTML <string "">>
+    <call history.pushState <string ""> <string ""> <var body>>
+    <call ReturnFunc>
+  >>>
+>>
+
+<function RouterPoint location exact component <body
+  <if exact <body
+    <if <equal window.location.pathname <var location>> <body
+      <call component>
+    >> 
+  >>
+  <if <equal exact false> <body
+    <if <call window.location.pathname.startsWith <var location>> <body
+      <call component>
+    >> 
+  >>
+>> 
+
+<function Link href text id parent className <body
+  <call element <string "button"> <var text> <var id> <var parent> <var className> >
+
+  <call MontiorInputs <var id> <string "click"> <Arrowfunc value    <body
+    <if <notequal href window.location.pathname> <body
+      <call history.move href>
+    >>
+  >>>
+>>

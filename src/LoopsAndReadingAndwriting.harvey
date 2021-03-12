@@ -1,0 +1,14 @@
+<"Very Simple code for itterating through a array">
+
+<letsmake array <array 1 2 3 4 5 6 7 8 9>> 
+<loop "i" array.length 1 <innerLoop 
+  <sendOut <concat array <itterate i>>>
+  >
+>
+<writeFile <string "hello.json"> <string "HIIII!!!"> err <body
+  <sendOut err>
+>>
+
+<sendOut <openFile <string "hello.json">>>
+
+<"because I am lazy this will be comments, they will be compiled so need to fix that, optimiser should remove">
