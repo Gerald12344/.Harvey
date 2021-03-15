@@ -1,4 +1,5 @@
 
+
 function MontiorInputs(item,reason,functionToCall){let textInput = document.getElementById(item);textInput.addEventListener(reason,function input(input){setTimeout(function test(){functionToCall(input.target.value,input.key)},5)},false)}
 function element(type,text,id,parent,className){let newElement = document.createElement(type);if(document.getElementById(id) === null){newElement.innerHTML = text;newElement.id = id;let FoundParent = document.getElementById(parent);FoundParent.appendChild(newElement)};if(!(document.getElementById(id) === null)){newElement.innerHTML = text};if(!(className === undefined)){newElement.className = className}}
 function updateText(id,text,wipeValue){let Node = document.getElementById(id);Node.innerHTML = text;if(wipeValue){Node.value = text}}
@@ -9,16 +10,14 @@ function Link(href,text,id,parent,className){element('button',text,id,parent,cla
 let colors = ['red','blue','green']
 let i = 0
 let hello = document.getElementById('element')
-let text = 'this changes'
-
-function PageTest(){;element('h1',text,'MainText','body')}
+let text = 'this changes a little too quickly I might give some one epilepsy'
+function PageTest(){setInterval(function input(){if(i === 3){i = 0};let hello = document.getElementById('MainText');hello.style.color = colors[i];i = i + 1}, 200);;element('h1',text,'MainText','body');element('h1','Whats the Scooby DOO coming after you were gonna solve that mystery, I see you scooby doo','BodyText','body')}
 
 function ConstantElements(){Link('/','HomePage','1','body','nav-button');Link('/pages','pages','5','body','nav-button');Link('/mathsQuiz','Maths Quiz','50','body','nav-button')}
 function MathsQuiz(){;let Operator = ['+','-'][Math.round((Math.random() * 1))];let firstNum = Math.round((Math.random() * 10));let secondNum = Math.round((Math.random() * 10));let yourScore = 0;let guess = '';element('h1',firstNum + Operator + secondNum,'Question','body');element('h2','Your score is ' + yourScore,'Score','body');;element('input','','QuestionBox','body');element('button','Submit','QuestionSubmit','body');;element('h1','your guess: ','Debug','body','guess');function WorkOutAnswer(){if(Operator === '+'){if(Number(guess) === firstNum + secondNum){yourScore = yourScore + 1}};if(Operator === '-'){if(Number(guess) === (firstNum - secondNum)){yourScore = yourScore + 1}};Operator = ['+','-'][Math.round((Math.random() * 1))];firstNum = Math.round((Math.random() * 10));secondNum = Math.round((Math.random() * 10));updateText('Question',firstNum + Operator + secondNum);updateText('Score','Your score is ' + yourScore);updateText('QuestionSubmit','Submit');updateText('QuestionBox','',true);updateText('Debug','your guess: ')};;MontiorInputs('QuestionBox','keydown',(value,key) => {guess = value;updateText('Debug','your guess: ' + value);if(key === 'Enter'){WorkOutAnswer()}});;MontiorInputs('QuestionSubmit','click',(value) => {WorkOutAnswer()})}
-function Homepage(){element('h1','Welcome to my website this website it purely written in the .Harvey framework which manipulates the DOM','Homepage','body')}
+function Homepage(){element('h1','Welcome to my website this website it purely written in the .Harvey framework which manipulates the DOM','Homepage','body');element('h1','Right ok complation test 1','HomepageUnder','body');element('h6','This might work','test','HomepageUnder')}
 function RouterRoot(){ConstantElements();;RouterPoint('/pages',true,PageTest);RouterPoint('/mathsQuiz',true,MathsQuiz);RouterPoint('/',true,Homepage)}
 
 RouterRoot()
 
 WindowMonitor(RouterRoot)
-

@@ -1,7 +1,7 @@
 {
    "debug":true,
    "version":"v1",
-   "evalOnCompile":true,
+   "evalOnCompile":false,
 
    "outputFolder":"dist",
    "outputFileName":"index.js",
@@ -14,6 +14,9 @@
 
    "pluginsFolder":"plugins",
    "pluginsSettings": "plugins.json",
+
+   "dev":true,
+   "watchmode":true,
 
    "dependencies": {
     "Basic-Control": "^1.0"

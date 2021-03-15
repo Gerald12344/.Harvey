@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Gerald12344/.HarveyLanguage#readme",
   "dependencies": {
     "@assemblyscript/loader": "^0.17.7",
+    "chokidar": "^3.5.1",
+    "express": "^4.17.1",
     "javascript-obfuscator": "^2.9.4",
     "optimize-js": "^1.0.3",
     "prepack": "^0.2.54",

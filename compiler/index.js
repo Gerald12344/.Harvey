@@ -3,4 +3,586 @@
 
 //Big thanks to the https://github.com/jamiebuilds/the-super-tiny-compiler for insipration and help with the tokeniser and paser and other parts.
 
-const _0xd66a=['forEach','true','Compiler\x20competely\x20successfully\x20now\x20attempting\x20to\x20run\x20the\x20code.','debugFile','else','log','loop','Yikes,\x20Error\x20writing\x20to\x20ouput\x20file.','for(let\x20','debugFileLocation','args','push','_context','\x20&&\x20','else{','paren','join','error','promise','mutiply','return','[==================\x20\x20\x20\x20\x20]','javascript-obfuscator','Compiling\x20Code\x20Stand\x20by...','readFile','and','start','concat','get','obfuscate','exit','Generating\x20Code\x20please\x20hang\x20on...','map','sendOut','splice','Tokenizing\x20please\x20hang\x20on...','Identifier','\x1b[36m','arguments','hasOwnProperty','debug','\x20+\x20','require(','Yikes,\x20I\x20dont\x20know\x20what\x20this\x20character\x20is:\x20','[=======================]','inputFile','enter','}))','return(','expression','file','letsmake','Parsing\x20please\x20hang\x20on...','plugins','console.log(','value','outputFolder','add','headers','name','length','\x20*\x20','function\x20','StringLiteral','Transforming\x20please\x20hang\x20on...','outputFileName','after','Cleaning\x20up\x20Dependencies','body','async','To\x20change\x20this\x20go\x20to\x20the\x20harveySettings.json\x20file\x20and\x20set\x20evalOnFinish\x20to\x20false','assign','Thank\x20you\x20for\x20using\x20the\x20.Harvey\x20Programming\x20Language.\x20Happy\x20Hacking.','pretty-error','warn','callee','[\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20]','NumberLiteral','array',')\x20=>\x20{','evalOnCompile','pluginsFolder','replace','number','test','if(','.then(','equal','All\x20Plugins\x20loaded\x20Successfully','\x1b[34m','../','./niceStuff.json','\x20/\x20','=0;','obuscateOutput','\x20-\x20','winston-color','subtract','params','Running\x20with\x20in\x20a\x20eval\x20loop()\x20for\x20production\x20builds\x20please\x20use\x20./','async\x20','\x0a*\x20Harvey\x20Programming\x20Compiled\x20Stuff,\x20you\x20touch\x20you\x20break\x20\x0a*\x20For\x20lisencing\x20and\x20for\x20copy\x20right\x20stuff\x20please\x20check\x20the\x20legal\x20stuff\x20below\x20\x0a*\x20This\x20is\x20the\x20compiled\x20file\x20and\x20is\x20optimised\x20and\x20obuscated\x20if\x20you\x20want\x20to\x20see\x20the\x20compiled\x20source\x20code\x20look\x20at\x20CompiledJS.js\x20\x0a*\x20--[[Code\x20will\x20start\x20soon\x20I\x20promise]]--\x20\x0a*\x20Look\x20away\x20its\x20hard\x20to\x20understand.\x20\x0a*/\x0a','type','wait','unshift','Dependencies','Loading\x20Plugins','case','Code\x20Compiled.','notequal','CallExpression','writeFileSync','Program','info','false','[============\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20]','function','string','\x20=\x20','../harveySettings.json','-----------------------[Compiler\x20Successfull]-----------------------','Yikes,\x20Error\x20writing\x20to\x20debug\x20file.','divide'];(function(_0x2044f8,_0xbbba23){const _0xd66aff=function(_0x53f791){while(--_0x53f791){_0x2044f8['push'](_0x2044f8['shift']());}};_0xd66aff(++_0xbbba23);}(_0xd66a,0x12d));const _0x53f7=function(_0x2044f8,_0xbbba23){_0x2044f8=_0x2044f8-0x14a;let _0xd66aff=_0xd66a[_0x2044f8];return _0xd66aff;};const _0x43e799=_0x53f7;'use strict';var logger=require(_0x43e799(0x173));let fs=require('fs'),settings=require(_0x43e799(0x18a));require(_0x43e799(0x15c))[_0x43e799(0x1a8)]();let commands={},pluginDependecies={},FileDependencies=[];function tokenizer(_0x439857){const _0x2e893e=_0x43e799;let _0x62e586=0x0,_0x320ea2='',_0x4b63f8=[];while(_0x62e586<_0x439857[_0x2e893e(0x14f)]){let _0xae37a9=_0x439857[_0x62e586];if(_0xae37a9==='<'){_0x4b63f8[_0x2e893e(0x199)]({'type':_0x2e893e(0x19d),'value':'<'}),_0x62e586++;continue;}if(_0xae37a9==='='){_0x4b63f8[_0x2e893e(0x199)]({'type':'paren','value':'='}),_0x62e586++;continue;}if(_0xae37a9==='>'){_0x4b63f8['push']({'type':_0x2e893e(0x19d),'value':'>'}),_0x62e586++;continue;}let _0x9e7e29=/\s/;if(_0x9e7e29[_0x2e893e(0x167)](_0xae37a9)){_0x62e586++;continue;}let _0x5c5b1f=/[0-9]/;if(_0x5c5b1f[_0x2e893e(0x167)](_0xae37a9)){let _0x21b6c4='';while(_0x5c5b1f[_0x2e893e(0x167)](_0xae37a9)){_0x21b6c4+=_0xae37a9,_0xae37a9=_0x439857[++_0x62e586];}_0x4b63f8[_0x2e893e(0x199)]({'type':_0x2e893e(0x166),'value':_0x21b6c4});continue;}if(_0xae37a9==='\x22'){let _0x812734='';_0xae37a9=_0x439857[++_0x62e586];while(_0xae37a9!=='\x22'){_0x812734+=_0xae37a9,_0xae37a9=_0x439857[++_0x62e586];}_0xae37a9=_0x439857[++_0x62e586],_0x4b63f8[_0x2e893e(0x199)]({'type':_0x2e893e(0x188),'value':_0x812734});continue;}let _0x47d714=/[a-z]/i;if(_0x47d714[_0x2e893e(0x167)](_0xae37a9)||_0xae37a9==='.'){let _0x3e198d='';while(_0x47d714[_0x2e893e(0x167)](_0xae37a9)||_0xae37a9==='.'){_0x3e198d+=_0xae37a9,_0xae37a9=_0x439857[++_0x62e586];}_0x4b63f8[_0x2e893e(0x199)]({'type':_0x2e893e(0x14e),'value':_0x3e198d});continue;}logger[_0x2e893e(0x19f)](_0x2e893e(0x1b9)+_0xae37a9),process[_0x2e893e(0x1ac)](0x1);}return _0x4b63f8;}function parser(_0xd634b7){const _0x1ba47f=_0x43e799;let _0x3404f3=0x0;function _0x25bdc6(){const _0x1f95cf=_0x53f7;let _0x437f5e=_0xd634b7[_0x3404f3];if(_0x437f5e[_0x1f95cf(0x179)]===_0x1f95cf(0x14e))return _0x3404f3++,{'type':'StringLiteral','value':_0x437f5e[_0x1f95cf(0x14a)]};if(_0x437f5e[_0x1f95cf(0x179)]===_0x1f95cf(0x166))return _0x3404f3++,{'type':'NumberLiteral','value':_0x437f5e[_0x1f95cf(0x14a)]};if(_0x437f5e[_0x1f95cf(0x179)]===_0x1f95cf(0x188))return _0x3404f3++,{'type':_0x1f95cf(0x152),'value':_0x437f5e[_0x1f95cf(0x14a)]};if(_0x437f5e[_0x1f95cf(0x179)]==='paren'&&_0x437f5e['value']==='='){_0x437f5e=_0xd634b7[++_0x3404f3];let _0x73de6c={'type':_0x1f95cf(0x181),'name':_0x437f5e[_0x1f95cf(0x14a)],'params':[]};}if(_0x437f5e[_0x1f95cf(0x179)]===_0x1f95cf(0x19d)&&_0x437f5e[_0x1f95cf(0x14a)]==='<'){_0x437f5e=_0xd634b7[++_0x3404f3];let _0x453e3a={'type':_0x1f95cf(0x181),'name':_0x437f5e[_0x1f95cf(0x14a)],'params':[]};_0x437f5e=_0xd634b7[++_0x3404f3];while(_0x437f5e['type']!==_0x1f95cf(0x19d)||_0x437f5e[_0x1f95cf(0x179)]===_0x1f95cf(0x19d)&&_0x437f5e['value']!=='>'){_0x453e3a[_0x1f95cf(0x175)][_0x1f95cf(0x199)](_0x25bdc6()),_0x437f5e=_0xd634b7[_0x3404f3];}return _0x3404f3++,_0x453e3a;}logger[_0x1f95cf(0x19f)](_0x437f5e[_0x1f95cf(0x179)]),process[_0x1f95cf(0x1ac)](0x1);}let _0x17f70a={'type':_0x1ba47f(0x183),'body':[]};while(_0x3404f3<_0xd634b7[_0x1ba47f(0x14f)]){_0x17f70a[_0x1ba47f(0x157)][_0x1ba47f(0x199)](_0x25bdc6());}return _0x17f70a;}function traverser(_0x37cbfa,_0x2768cf){function _0x17fdca(_0x33ad2e,_0x14e814){const _0x3e6c65=_0x53f7;_0x33ad2e[_0x3e6c65(0x18e)](_0x3e693a=>{_0x4bc824(_0x3e693a,_0x14e814);});}function _0x4bc824(_0x39f309,_0x31db0c){const _0xf9c4bb=_0x53f7;let _0x2fd036=_0x2768cf[_0x39f309[_0xf9c4bb(0x179)]];_0x2fd036&&_0x2fd036[_0xf9c4bb(0x1bc)]&&_0x2fd036[_0xf9c4bb(0x1bc)](_0x39f309,_0x31db0c);switch(_0x39f309[_0xf9c4bb(0x179)]){case _0xf9c4bb(0x183):_0x17fdca(_0x39f309[_0xf9c4bb(0x157)],_0x39f309);break;case _0xf9c4bb(0x181):_0x17fdca(_0x39f309[_0xf9c4bb(0x175)],_0x39f309);break;case'NumberLiteral':case'StringLiteral':break;default:logger[_0xf9c4bb(0x19f)](_0x39f309[_0xf9c4bb(0x179)]),process[_0xf9c4bb(0x1ac)](0x1);}_0x2fd036&&_0x2fd036[_0xf9c4bb(0x1ac)]&&_0x2fd036[_0xf9c4bb(0x1ac)](_0x39f309,_0x31db0c);}_0x4bc824(_0x37cbfa,null);}function transformer(_0x2776b6){let _0xb7b58c={'type':'Program','body':[]};return _0x2776b6['_context']=_0xb7b58c['body'],traverser(_0x2776b6,{'NumberLiteral':{'enter'(_0x4fb9f6,_0x39ff08){const _0x1da6df=_0x53f7;_0x39ff08[_0x1da6df(0x19a)]['push']({'type':_0x1da6df(0x160),'value':_0x4fb9f6[_0x1da6df(0x14a)]});}},'StringLiteral':{'enter'(_0x504fa4,_0x3f24ca){const _0x243e26=_0x53f7;_0x3f24ca[_0x243e26(0x19a)][_0x243e26(0x199)]({'type':_0x243e26(0x152),'value':_0x504fa4[_0x243e26(0x14a)]});}},'CallExpression':{'enter'(_0x51f401,_0x969ccf){const _0x161f66=_0x53f7;let _0x5d56f4={'type':'CallExpression','callee':{'type':'Identifier','name':_0x51f401['name']},'arguments':[]};_0x51f401[_0x161f66(0x19a)]=_0x5d56f4[_0x161f66(0x1b4)],_0x969ccf[_0x161f66(0x179)]!==_0x161f66(0x181)&&(_0x5d56f4={'type':'ExpressionStatement','expression':_0x5d56f4}),_0x969ccf['_context'][_0x161f66(0x199)](_0x5d56f4);}}}),_0xb7b58c;}function codeGenerator(_0x441865){const _0x7e6670=_0x43e799;switch(_0x441865[_0x7e6670(0x179)]){case'Program':return _0x441865[_0x7e6670(0x157)][_0x7e6670(0x1ae)](codeGenerator)[_0x7e6670(0x19e)]('\x0a');case'ExpressionStatement':return codeGenerator(_0x441865[_0x7e6670(0x1bf)]);case _0x7e6670(0x181):switch(_0x441865[_0x7e6670(0x15e)][_0x7e6670(0x14e)]){case _0x7e6670(0x14c):return _0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)['join'](_0x7e6670(0x1b7));case _0x7e6670(0x174):return'('+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[_0x7e6670(0x19e)](_0x7e6670(0x172))+')';case _0x7e6670(0x1a1):return'('+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[_0x7e6670(0x19e)](_0x7e6670(0x150))+')';case _0x7e6670(0x18d):return'('+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[_0x7e6670(0x19e)](_0x7e6670(0x16f))+')';case'if':let _0x3b0547=_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator);_0x3b0547[_0x7e6670(0x1b0)](0x0,0x1)[_0x7e6670(0x19e)](','),_0x3b0547[_0x7e6670(0x18e)]((_0x30ebc4,_0x482a87)=>{const _0x47e0e7=_0x7e6670;if(_0x482a87+0x1===_0x3b0547[_0x47e0e7(0x14f)])return;_0x3b0547[_0x482a87]=_0x30ebc4['replace']('\x22','')['replace']('\x22','');});let _0xd86d27=_0x3b0547[_0x3b0547[_0x7e6670(0x14f)]-0x1];_0x3b0547['splice'](_0x3b0547[_0x7e6670(0x14f)]-0x1,0x1);return _0x7e6670(0x168)+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','')+'){'+_0xd86d27+'}';case'call':let _0x33df51=_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator);_0x33df51[_0x7e6670(0x1b0)](0x0,0x1)[_0x7e6670(0x19e)](',');return _0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','')+'('+_0x33df51+')';case _0x7e6670(0x187):let _0x310275=_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator);_0x310275[_0x7e6670(0x1b0)](0x0,0x1)['join'](','),_0x310275[_0x7e6670(0x18e)]((_0x2c634c,_0x50c10f)=>{const _0x116e79=_0x7e6670;if(_0x50c10f+0x1===_0x310275['length'])return;_0x310275[_0x50c10f]=_0x2c634c[_0x116e79(0x165)]('\x22','')[_0x116e79(0x165)]('\x22','');});let _0x217e31=_0x310275[_0x310275['length']-0x1];_0x310275[_0x7e6670(0x1b0)](_0x310275['length']-0x1,0x1);return _0x7e6670(0x151)+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','')+'('+_0x310275[_0x7e6670(0x19e)](',')+'){'+_0x217e31+'}';case'Arrowfunc':let _0x1835ff=_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator);_0x1835ff[_0x7e6670(0x18e)]((_0x2e4f80,_0x37026a)=>{const _0x3c6728=_0x7e6670;_0x1835ff[_0x37026a]=_0x2e4f80[_0x3c6728(0x165)]('\x22','')[_0x3c6728(0x165)]('\x22','');});let _0x3c2836=_0x1835ff[_0x1835ff[_0x7e6670(0x14f)]-0x1];_0x1835ff[_0x7e6670(0x1b0)](_0x1835ff[_0x7e6670(0x14f)]-0x1,0x1);return'('+_0x1835ff[_0x7e6670(0x19e)](',')+_0x7e6670(0x162)+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)['length']-0x1]+'}';case _0x7e6670(0x1af):let _0x26db50=_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0];if(_0x441865['arguments']['map'](codeGenerator)['includes'](_0x7e6670(0x198))){let _0x767d0=_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[_0x7e6670(0x17b)]();return _0x7e6670(0x1c4)+_0x26db50+'('+_0x767d0[_0x7e6670(0x19e)](',')+'))';}else return _0x7e6670(0x1c4)+_0x26db50+')';case _0x7e6670(0x192):return _0x7e6670(0x19c)+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)+'}';case _0x7e6670(0x1a0):let _0x5b882a=_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator);_0x5b882a[_0x7e6670(0x1b0)](0x0,0x2);return'return(new\x20Promise(('+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','')+',\x20'+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[0x1][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','')+_0x7e6670(0x162)+_0x5b882a[_0x7e6670(0x19e)](';')+_0x7e6670(0x1bd);case'iNeed':return _0x7e6670(0x1b8)+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)+')';case'iWant':let _0x1419a3=fs['readFileSync'](_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22',''),'utf-8'),_0x4e2bff=CompiledOtherFiles(_0x1419a3);return _0x4e2bff;case _0x7e6670(0x158):return _0x7e6670(0x177)+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator);case _0x7e6670(0x17a):return'await\x20'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator);case'new':return'new\x20'+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator);case _0x7e6670(0x1c1):let _0x1d2a0c=_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x1];return'let\x20'+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0]['replace']('\x22','')[_0x7e6670(0x165)]('\x22','')+_0x7e6670(0x189)+_0x1d2a0c;case'if':return'if('+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+')';case _0x7e6670(0x155):return _0x7e6670(0x169)+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+')';case'error':return'.catch('+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0]+')';case'reply':return _0x7e6670(0x1be)+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[0x0]+')';case'innerLoop':return'{'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+'}';case _0x7e6670(0x157):return''+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[_0x7e6670(0x19e)](';');case'var':return _0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')['replace']('\x22','');case _0x7e6670(0x1a2):return _0x7e6670(0x1a2);case'ToNumber':return _0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]['replace']('\x22','')[_0x7e6670(0x165)]('\x22','');case _0x7e6670(0x16a):return _0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[0x0]+'\x20===\x20'+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[0x1];case _0x7e6670(0x180):return'!('+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+'\x20===\x20'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x1]+')';case _0x7e6670(0x1a7):return _0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+_0x7e6670(0x19b)+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x1];case _0x7e6670(0x18f):return!![];case _0x7e6670(0x185):return![];case _0x7e6670(0x194):let _0x343c5d=_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator),_0x36e6dd=_0x343c5d[_0x343c5d['length']-0x1],_0x3ee2c6=_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0][_0x7e6670(0x165)]('\x22','')[_0x7e6670(0x165)]('\x22','');return _0x7e6670(0x196)+_0x3ee2c6+_0x7e6670(0x170)+_0x3ee2c6+'<'+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x1]+';'+_0x3ee2c6+'='+_0x3ee2c6+'+'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x2]+'){'+_0x36e6dd+'}';case _0x7e6670(0x1aa):return'document.getElementById('+_0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)+')';case _0x7e6670(0x15a):return _0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x0]+'\x20=\x20'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[0x1];case _0x7e6670(0x188):return'\x27'+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)+'\x27';case _0x7e6670(0x161):return'['+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[_0x7e6670(0x19e)](',')+']';case'itterate':return _0x441865['arguments'][_0x7e6670(0x1ae)](codeGenerator)[0x0]+'['+_0x441865[_0x7e6670(0x1b4)]['map'](codeGenerator)[0x1]+']';case _0x7e6670(0x1a9):return''+_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator)[_0x7e6670(0x19e)]('');}if(!(commands[_0x441865['callee'][_0x7e6670(0x14e)]]===undefined))return pluginDependecies[_0x441865[_0x7e6670(0x15e)][_0x7e6670(0x14e)]]===undefined&&(pluginDependecies[_0x441865[_0x7e6670(0x15e)]['name']]=!![],!(commands[_0x441865[_0x7e6670(0x15e)][_0x7e6670(0x14e)]][_0x7e6670(0x17c)]()===![])&&FileDependencies[_0x7e6670(0x199)](commands[_0x441865[_0x7e6670(0x15e)][_0x7e6670(0x14e)]][_0x7e6670(0x17c)]())),commands[_0x441865[_0x7e6670(0x15e)][_0x7e6670(0x14e)]]['Command'](_0x441865[_0x7e6670(0x1b4)][_0x7e6670(0x1ae)](codeGenerator));case _0x7e6670(0x1b2):return _0x441865[_0x7e6670(0x14e)];case'NumberLiteral':return _0x441865[_0x7e6670(0x14a)];case _0x7e6670(0x152):return _0x441865['value'];default:logger[_0x7e6670(0x19f)](_0x441865[_0x7e6670(0x179)]),process[_0x7e6670(0x1ac)](0x1);}}function CompiledOtherFiles(_0x429de2){let _0x31d157=tokenizer(_0x429de2),_0x2aed54=parser(_0x31d157),_0x17c059=transformer(_0x2aed54),_0x29e816=codeGenerator(_0x17c059);return _0x29e816;}function loadPlugins(){const _0x54b0a8=_0x43e799;let _0x913853=require(_0x54b0a8(0x16d)+settings[_0x54b0a8(0x164)]+'/'+settings['pluginsSettings']);_0x913853[_0x54b0a8(0x1c3)]['forEach'](_0x8314d7=>{const _0x687b22=_0x54b0a8;commands[_0x8314d7[_0x687b22(0x17e)]]=require('../'+settings['pluginsFolder']+'/'+_0x8314d7[_0x687b22(0x1c0)]);});}function uniq(_0xb5d2d3){var _0x5da99c={};return _0xb5d2d3['filter'](function(_0x1fc036){const _0x3081b8=_0x53f7;return _0x5da99c[_0x3081b8(0x1b5)](_0x1fc036)?![]:_0x5da99c[_0x1fc036]=!![];});}var JavaScriptObfuscator=require(_0x43e799(0x1a4));function compiler(_0x59a11c){const _0x43c5dd=_0x43e799;settings[_0x43c5dd(0x1b6)]&&logger[_0x43c5dd(0x1b6)](_0x43c5dd(0x17d));loadPlugins();settings[_0x43c5dd(0x1b6)]&&logger['debug'](_0x43c5dd(0x16b));console[_0x43c5dd(0x193)](_0x43c5dd(0x16c),_0x43c5dd(0x1a5)),console[_0x43c5dd(0x193)](_0x43c5dd(0x1b3),_0x43c5dd(0x15f));settings[_0x43c5dd(0x1b6)]&&logger[_0x43c5dd(0x1b6)](_0x43c5dd(0x1b1));let _0x1a4458=tokenizer(_0x59a11c);console[_0x43c5dd(0x193)](_0x43c5dd(0x16c),_0x43c5dd(0x1a5)),console[_0x43c5dd(0x193)]('\x1b[36m','[======\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20]');settings['debug']&&logger[_0x43c5dd(0x1b6)](_0x43c5dd(0x1c2));let _0x1c9088=parser(_0x1a4458);console[_0x43c5dd(0x193)](_0x43c5dd(0x16c),_0x43c5dd(0x1a5)),console['log'](_0x43c5dd(0x1b3),_0x43c5dd(0x186));settings[_0x43c5dd(0x1b6)]&&logger[_0x43c5dd(0x1b6)](_0x43c5dd(0x153));let _0x4ddb3f=transformer(_0x1c9088);console[_0x43c5dd(0x193)](_0x43c5dd(0x16c),_0x43c5dd(0x1a5)),console[_0x43c5dd(0x193)](_0x43c5dd(0x1b3),_0x43c5dd(0x1a3));settings[_0x43c5dd(0x1b6)]&&logger[_0x43c5dd(0x1b6)](_0x43c5dd(0x1ad));let _0x2534aa=codeGenerator(_0x4ddb3f);settings['debug']&&logger['debug'](_0x43c5dd(0x156));let _0x144d4c=uniq(FileDependencies);_0x2534aa=_0x144d4c[_0x43c5dd(0x19e)](';')+_0x2534aa;let _0x22ab09=require(_0x43c5dd(0x16e));settings[_0x43c5dd(0x191)]===!![]&&fs[_0x43c5dd(0x182)]('./'+settings['outputFolder']+'/'+settings[_0x43c5dd(0x197)]+'/'+settings['debugFileName'],_0x2534aa,_0x52a75d=>{const _0x50d6d1=_0x43c5dd;logger[_0x50d6d1(0x19f)](_0x50d6d1(0x18c)),process[_0x50d6d1(0x1ac)](0x1);});let _0x1175d2=_0x2534aa;return settings[_0x43c5dd(0x171)]&&(_0x1175d2=JavaScriptObfuscator[_0x43c5dd(0x1ab)](_0x2534aa)),fs['writeFileSync']('./'+settings[_0x43c5dd(0x14b)]+'/'+settings[_0x43c5dd(0x154)],_0x22ab09[_0x43c5dd(0x14d)]+_0x43c5dd(0x178)+_0x1175d2,_0x596436=>{const _0x415e0d=_0x43c5dd;logger[_0x415e0d(0x19f)](_0x415e0d(0x195)),process['exit'](0x1);}),console[_0x43c5dd(0x193)](_0x43c5dd(0x16c),_0x43c5dd(0x17f)),console[_0x43c5dd(0x193)]('\x1b[36m',_0x43c5dd(0x1ba)),_0x2534aa;}fs[_0x43e799(0x1a6)]('./'+settings['inputFolder']+'/'+settings[_0x43e799(0x1bb)],'utf8',async(_0x4dd737,_0x22eb7b)=>{const _0x510180=_0x43e799;let _0x767cd3=_0x22eb7b,_0x21e4a1=await compiler(_0x767cd3);settings[_0x510180(0x163)]&&(logger[_0x510180(0x15d)](_0x510180(0x176)+settings[_0x510180(0x14b)]+'/'+settings[_0x510180(0x154)]),settings[_0x510180(0x1b6)]&&logger['debug'](_0x510180(0x159)),settings['debug']&&(logger[_0x510180(0x184)](_0x510180(0x18b)),logger[_0x510180(0x1b6)](_0x510180(0x15b)),logger[_0x510180(0x1b6)](_0x510180(0x190)),logger[_0x510180(0x184)]('--------------------------------------------------------------------')),eval(_0x21e4a1));});
+'use strict';
+//Please don't steal took ages
+
+//Big thanks to the https://github.com/jamiebuilds/the-super-tiny-compiler for insipration and help with the tokeniser and paser and other parts.
+
+var logger = require("winston-color");
+let fs = require('fs')
+let settings = require("../harveySettings.json")
+require('pretty-error').start();
+var Prepack = require("prepack");
+let path = require('path')
+
+let commands = {}
+let pluginDependecies = {}
+let FileDependencies = []
+
+function tokenizer(input) {
+  let current = 0;
+  let previous = ''
+  let tokens = [];
+
+  while (current < input.length) {
+    let char = input[current];
+    if (char === '<') {
+      tokens.push({
+        type: 'paren',
+        value: '<',
+      });
+      current++;
+      continue;
+    }
+    if (char === '=') {
+      tokens.push({
+        type: 'paren',
+        value: '=',
+      });
+      current++;
+      continue;
+    }
+
+    if (char === '>') {
+      tokens.push({
+        type: 'paren',
+        value: '>',
+      });
+      current++;
+      continue;
+    }
+
+    let WHITESPACE = /\s/;
+    if (WHITESPACE.test(char)) {
+      current++;
+      continue;
+    }
+    let NUMBERS = /[0-9]/;
+    if (NUMBERS.test(char)) {
+      let value = '';
+      while (NUMBERS.test(char)) {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'number', value });
+      continue;
+    }
+    if (char === '"') {
+      let value = '';
+      char = input[++current];
+      while (char !== '"') {
+        value += char;
+        char = input[++current];
+      }
+      char = input[++current];
+      tokens.push({ type: 'string', value });
+
+      continue;
+    }
+
+
+    let LETTERS = /[a-z]/i;
+    if (LETTERS.test(char) || char === '.') {
+      let value = '';
+      while (LETTERS.test(char) || char === '.') {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'name', value });
+
+      continue;
+    }
+    logger.error('Yikes, I dont know what this character is: ' + char);
+    process.exit(1)
+  }
+
+  return tokens;
+}
+function parser(tokens) {
+  let current = 0;
+  function walk() {
+    let token = tokens[current];
+
+    if (token.type === 'name') {
+      current++;
+      return {
+        type: 'StringLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'number') {
+      current++;
+      return {
+        type: 'NumberLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'string') {
+      current++;
+
+      return {
+        type: 'StringLiteral',
+        value: token.value,
+      };
+    }
+    if (token.type === 'paren' && token.value === '=') {
+      token = tokens[++current];
+      let node = {
+        type: 'CallExpression',
+        name: token.value,
+        params: [],
+      };
+    }
+    if (
+      token.type === 'paren' &&
+      token.value === '<'
+    ) {
+      token = tokens[++current];
+      let node = {
+        type: 'CallExpression',
+        name: token.value,
+        params: [],
+      };
+      token = tokens[++current];
+
+      while (
+        (token.type !== 'paren') ||
+        (token.type === 'paren' && token.value !== '>')
+      ) {
+        node.params.push(walk());
+        token = tokens[current];
+      }
+      current++;
+      return node;
+    }
+    logger.error(token.type);
+    process.exit(1)
+  }
+  let ast = {
+    type: 'Program',
+    body: [],
+  };
+
+  while (current < tokens.length) {
+    ast.body.push(walk());
+  }
+  return ast;
+}
+
+
+function traverser(ast, visitor) {
+  function traverseArray(array, parent) {
+    array.forEach(child => {
+      traverseNode(child, parent);
+    });
+  }
+
+  function traverseNode(node, parent) {
+    let methods = visitor[node.type];
+    if (methods && methods.enter) {
+      methods.enter(node, parent);
+    }
+
+    switch (node.type) {
+      case 'Program':
+        traverseArray(node.body, node);
+        break;
+      case 'CallExpression':
+        traverseArray(node.params, node);
+        break;
+      case 'NumberLiteral':
+      case 'StringLiteral':
+        break;
+
+      default:
+        logger.error(node.type);
+        process.exit(1)
+    }
+
+    if (methods && methods.exit) {
+      methods.exit(node, parent);
+    }
+  }
+  traverseNode(ast, null);
+}
+
+
+
+function transformer(ast) {
+  let newAst = {
+    type: 'Program',
+    body: [],
+  };
+
+  ast._context = newAst.body;
+
+  traverser(ast, {
+    NumberLiteral: {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'NumberLiteral',
+          value: node.value,
+        });
+      },
+    },
+
+    StringLiteral: {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'StringLiteral',
+          value: node.value,
+        });
+      },
+    },
+
+    CallExpression: {
+      enter(node, parent) {
+
+
+        let expression = {
+          type: 'CallExpression',
+          callee: {
+            type: 'Identifier',
+            name: node.name,
+          },
+          arguments: [],
+        };
+        node._context = expression.arguments;
+
+        if (parent.type !== 'CallExpression') {
+          expression = {
+            type: 'ExpressionStatement',
+            expression: expression,
+          };
+        }
+        parent._context.push(expression);
+      },
+    }
+  });
+  return newAst;
+}
+
+function codeGenerator(node) {
+  switch (node.type) {
+
+    case 'Program':
+      return node.body.map(codeGenerator)
+        .join('\n');
+    case 'ExpressionStatement':
+      return (
+        codeGenerator(node.expression)
+      );
+
+    case 'CallExpression':
+      switch (node.callee.name) {
+        case 'add':
+          return (node.arguments.map(codeGenerator).join(' + '))
+        case 'subtract':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' - ') + ')')
+        case 'mutiply':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' * ') + ')')
+        case 'divide':
+          return ('(' + node.arguments.map(codeGenerator)
+            .join(' / ') + ')')
+        case 'if':
+          let ifStuff = node.arguments.map(codeGenerator)
+          ifStuff.splice(0, 1).join(',')
+          ifStuff.forEach((e, i) => {
+            if ((i + 1) === ifStuff.length) return;
+            ifStuff[i] = e.replace('"', '').replace('"', '')
+          })
+          let lasts = ifStuff[ifStuff.length - 1]
+          ifStuff.splice(ifStuff.length - 1, 1)
+          return (`if(${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}){${lasts}}`)
+        case 'call':
+          let propses = node.arguments.map(codeGenerator)
+          propses.splice(0, 1).join(',')
+
+          return (`${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}(${propses})`)
+        case 'function':
+          let propss = node.arguments.map(codeGenerator)
+          propss.splice(0, 1).join(',')
+          propss.forEach((e, i) => {
+            if ((i + 1) === propss.length) return;
+            propss[i] = e.replace('"', '').replace('"', '')
+          })
+          let last = propss[propss.length - 1]
+          propss.splice(propss.length - 1, 1)
+          return (`function ${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}(${propss.join(',')}){${last}}`)
+        case 'Arrowfunc':
+          let propsss = node.arguments.map(codeGenerator)
+          propsss.forEach((e, i) => {
+            propsss[i] = e.replace('"', '').replace('"', '')
+          })
+          let lastest = propsss[propsss.length - 1]
+          propsss.splice(propsss.length - 1, 1)
+          return (`(${propsss.join(',')}) => {${(node.arguments.map(codeGenerator)[node.arguments.map(codeGenerator).length - 1])}}`)
+        case 'sendOut':
+
+          let inputs = (node.arguments.map(codeGenerator)[0]);
+          if (node.arguments.map(codeGenerator).includes('args')) {
+            let args = node.arguments.map(codeGenerator).unshift()
+            return (`console.log(${inputs}(${args.join(',')}))`)
+          } else {
+            return (`console.log(${inputs})`)
+          }
+        case 'else':
+          return (`else{${node.arguments.map(codeGenerator)}}`)
+        case 'promise':
+          let promiseArray = node.arguments.map(codeGenerator)
+          promiseArray.splice(0, 2)
+          return (`return(new Promise((${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}, ${node.arguments.map(codeGenerator)[1].replace('"', '').replace('"', '')}) => {${promiseArray.join(';')}}))`)
+
+        case 'iNeed':
+          return (`require(${node.arguments.map(codeGenerator)})`)
+        case 'iWant':
+          let data = fs.readFileSync(node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''), 'utf-8')
+          let response = CompiledOtherFiles(data)
+          return (response)
+        case 'async':
+          return (`async ${node.arguments.map(codeGenerator)}`)
+        case 'wait':
+          return (`await ${node.arguments.map(codeGenerator)}`)
+        case 'new':
+          return (`new ${node.arguments.map(codeGenerator)}`)
+
+        case 'letsmake':
+          let inputing = (node.arguments.map(codeGenerator)[1]);
+          return (`let ${(node.arguments.map(codeGenerator)[0]).replace('"', '').replace('"', '')} = ${inputing}`)
+
+
+        case 'if':
+          return (`if(${node.arguments.map(codeGenerator)[0]})`)
+        case 'after':
+          return (`.then(${node.arguments.map(codeGenerator)[0]})`)
+        case 'error':
+          return (`.catch(${node.arguments.map(codeGenerator)[0]})`)
+        case 'reply':
+          return (`return(${node.arguments.map(codeGenerator)[0]})`)
+        case 'innerLoop':
+          return (`{${node.arguments.map(codeGenerator)[0]}}`)
+        case 'body':
+          return (`${node.arguments.map(codeGenerator).join(';')}`)
+        case 'var':
+          return (node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''))
+        case 'return':
+          return ('return')
+        case 'ToNumber':
+          return (node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''))
+        case 'equal':
+          return (`${node.arguments.map(codeGenerator)[0]} === ${node.arguments.map(codeGenerator)[1]}`)
+        case 'notequal':
+          return (`!(${node.arguments.map(codeGenerator)[0]} === ${node.arguments.map(codeGenerator)[1]})`)
+        case 'and':
+          return (`${node.arguments.map(codeGenerator)[0]} && ${node.arguments.map(codeGenerator)[1]}`)
+        case 'true':
+          return (true)
+        case 'false':
+          return (false)
+        case 'loop':
+          let using = node.arguments.map(codeGenerator)
+          let lastes = using[using.length - 1]
+          let variable = node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')
+          return (`for(let ${variable}=0;${variable}<${node.arguments.map(codeGenerator)[1]};${variable}=${variable}+${node.arguments.map(codeGenerator)[2]}){${lastes}}`)
+        case 'get':
+          return (`document.getElementById(${node.arguments.map(codeGenerator)})`)
+        case 'assign':
+          return (`${node.arguments.map(codeGenerator)[0]} = ${node.arguments.map(codeGenerator)[1]}`)
+        case 'string':
+          return (`'${node.arguments.map(codeGenerator)}'`)
+        case 'array':
+          return (`[${node.arguments.map(codeGenerator).join(',')}]`)
+        case 'itterate':
+          return (`${node.arguments.map(codeGenerator)[0]}[${node.arguments.map(codeGenerator)[1]}]`)
+        case 'concat':
+          return (`${node.arguments.map(codeGenerator).join('')}`)
+      }
+      if (!(commands[node.callee.name] === undefined)) {
+        if (pluginDependecies[node.callee.name] === undefined) {
+          pluginDependecies[node.callee.name] = true
+          if (!(commands[node.callee.name].Dependencies() === false)) {
+            FileDependencies.push(commands[node.callee.name].Dependencies())
+          }
+        }
+        return commands[node.callee.name].Command(node.arguments.map(codeGenerator))
+      }
+
+    case 'Identifier':
+      return node.name;
+
+    case 'NumberLiteral':
+      return node.value;
+    case 'StringLiteral':
+      return node.value;
+
+    default:
+      logger.error(node.type);
+      process.exit(1)
+  }
+}
+
+function CompiledOtherFiles(input) {
+  let tokens = tokenizer(input);
+  let ast = parser(tokens);
+  let newAst = transformer(ast);
+  let output = codeGenerator(newAst);
+  return output
+}
+
+function loadPlugins() {
+  let pluginSettings = require(`../${settings.pluginsFolder}/${settings.pluginsSettings}`)
+  pluginSettings.plugins.forEach(element => {
+    commands[element.case] = require(`../${settings.pluginsFolder}/${element.file}`)
+  })
+}
+
+function uniq(a) {
+  var seen = {};
+  return a.filter(function (item) {
+    return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+}
+
+var JavaScriptObfuscator = require('javascript-obfuscator');
+function compiler(input) {
+  if (settings.debug) {
+    logger.debug(`Loading Plugins`)
+  }
+  loadPlugins()
+  if (settings.debug) {
+    logger.debug(`All Plugins loaded Successfully`)
+  }
+
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[                       ]')
+  if (settings.debug) {
+    logger.debug(`Tokenizing please hang on...`)
+  }
+  let tokens = tokenizer(input);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[======                 ]')
+  if (settings.debug) {
+    logger.debug(`Parsing please hang on...`)
+  }
+  let ast = parser(tokens);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[============           ]')
+  if (settings.debug) {
+    logger.debug(`Transforming please hang on...`)
+  }
+  let newAst = transformer(ast);
+  console.log('\x1b[34m', 'Compiling Code Stand by...')
+  console.log('\x1b[36m', '[==================     ]')
+  if (settings.debug) {
+    logger.debug(`Generating Code please hang on...`)
+  }
+
+  let output = codeGenerator(newAst);
+  if (settings.debug) {
+    logger.debug(`Cleaning up Dependencies`)
+  }
+  let Dependencies2 = uniq(FileDependencies)
+  output = Dependencies2.join(';') + output
+  let headers = require('./niceStuff.json')
+
+  if (settings.debugFile === true) {
+    fs.writeFileSync(`./${settings.outputFolder}/${settings.debugFileLocation}/${settings.debugFileName}`, (output), (err) => {
+      logger.error('Yikes, Error writing to debug file.');
+      process.exit(1)
+    })
+  }
+  let MainOut = output
+  if (settings.obuscateOutput) {
+    //console.log(Prepack.prepackSources([{filePath:'MainOutput', fileContents:JavaScriptObfuscator.obfuscate(output)}]))
+    MainOut = (JavaScriptObfuscator.obfuscate(output))
+  }
+
+  fs.writeFileSync(`./${settings.outputFolder}/${settings.outputFileName}`, headers.headers + '\n* Harvey Programming Compiled Stuff, you touch you break \n* For lisencing and for copy right stuff please check the legal stuff below \n* This is the compiled file and is optimised and obuscated if you want to see the compiled source code look at CompiledJS.js \n* --[[Code will start soon I promise]]-- \n* Look away its hard to understand. \n*/\n' + MainOut, (err) => {
+    logger.error('Yikes, Error writing to ouput file.');
+    process.exit(1)
+  });
+  console.log('\x1b[34m', 'Code Compiled.');
+  console.log('\x1b[36m', '[=======================]');
+  return output
+
+
+
+}
+
+const express = require('express');
+const app = express()
+let lastUpdate = Date.now()
+
+let setupCompiler = () => {
+  fs.readFile(`./${settings.inputFolder}/${settings.inputFile}`, 'utf8', async (err, data) => {
+    let input = data
+    try{
+      let CompiledJS = await compiler(input)
+    }catch(e){
+      logger.warn("FATAL COMPLATION ERROR")
+    }
+    
+    if (settings.evalOnCompile) {
+      logger.warn(`Running with in a eval loop() for production builds please use ./${settings.outputFolder}/${settings.outputFileName}`)
+      if (settings.debug) {
+        logger.debug('To change this go to the harveySettings.json file and set evalOnFinish to false');
+      }
+      if (settings.debug) {
+        logger.info('-----------------------[Compiler Successfull]-----------------------')
+        logger.debug(`Thank you for using the .Harvey Programming Language. Happy Hacking.`)
+        logger.debug(`Compiler competely successfully now attempting to run the code.`)
+        logger.info('--------------------------------------------------------------------')
+      }
+      eval(CompiledJS);
+    }
+    lastUpdate = Date.now()
+    if (settings.dev === true) {
+      let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`)
+
+      if (!fs.existsSync(`${settings.outputFolder}/public`)) {
+        fs.mkdirSync(`${settings.outputFolder}/public`);
+      }
+
+
+      fs.writeFileSync(`./${settings.outputFolder}/index.html`, text);
+
+      const dir = fs.opendirSync(`${settings.inputFolder}/public/imports`)
+      let dirent
+      while ((dirent = dir.readSync()) !== null) {
+        fs.writeFileSync(`./${settings.outputFolder}/public/${dirent.name}`, fs.readFileSync(`${settings.inputFolder}/public/imports/${dirent.name}`, 'utf-8'))
+      }
+      dir.closeSync()
+
+      app.use(express.static(path.join(__dirname, `../dist`)))
+
+      app.get('/api/lastupdate', (req, res) => {
+        res.send(`${lastUpdate}`)
+      })
+
+      app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, `../${settings.outputFolder}/index.html`));
+      });
+      
+
+    }
+
+  })
+}
+setupCompiler()
+var chokidar = require('chokidar');
+
+var watcher = chokidar.watch(`./${settings.inputFolder}`, {ignored: /^\./, persistent: true});
+let startTime = Date.now()
+let restart = () => {
+  if(Date.now()-3000 < startTime){return}
+  setupCompiler()
+}
+watcher
+  .on('add', function(path) {logger.debug(`File added ${path}, starting recomplation`); restart()})
+  .on('change', function(path) {logger.debug(`File updated ${path}, starting recomplation`); restart()})
+  .on('unlink', function(path) {logger.debug(`File deleted ${path}, starting recomplation`);;restart()})
+  .on('error', function(error) {logger.error('Error happened', error);})
+
+app.listen(3000, () => logger.debug('App listening on port 3000!'));

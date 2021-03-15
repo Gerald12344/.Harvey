@@ -1,25 +1,28 @@
 <letsmake colors <array <string "red"> <string "blue"> <string "green">>>
 <letsmake i 0>
 <letsmake hello <get <string "element">>>
-<letsmake text <string "this changes">>
+<letsmake text <string "this changes a little too quickly I might give some one epilepsy">>
 
-<"
-<interval <function input
-  <body
-    <if <equal <var i> 3> <body 
-      <assign <var i> 0>
-    >>
-    <letsmake hello <get <string "element">>>
-    <assign hello.style.color <itterate colors i>>
-    <assign i <add i 1>>
-  >>
-50>
-">
+
+
 
 <function PageTest <body
+  <interval <function input
+    <body
+      <if <equal <var i> 3> <body 
+        <assign <var i> 0>
+      >>
+      <letsmake hello <get <string "MainText">>>
+      <assign hello.style.color <itterate colors i>>
+      <assign i <add i 1>>
+    >>
+  200>
   <"This is the main route that rerenders with a variable change">
 
   <call element <string "h1"> <var text> <string "MainText"> <string "body">>
+
+
+  <call element <string "h1"> <string "Whats the Scooby DOO coming after you were gonna solve that mystery, I see you scooby doo"> <string "BodyText"> <string "body">>
 >>
 
 

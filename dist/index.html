@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="hello">
+	<link href="./public/index.css" rel="stylesheet" type="text/css" />
+  <link href="./public/test.css" rel="stylesheet" type="text/css" />
+	<title>Test! Ok</title>
+</head>
+
+<body id="body">
+  <script src="index.js"></script>
+</body>
+<script>
+	let time = "0"
+  setInterval(async () => {
+    fetch("https://harveylanguage.harveyrandall.repl.co/api/lastupdate").then(function(response) {
+      response.text().then(function(text) {
+        console.log(text)
+        if(time === "0"){
+          time = text
+          return
+        }
+        if(time !== "0" && time !== text){
+          window.location.reload(true);
+        }
+        time = text
+      });
+    });
+  },300)
+
+</script>
+
+</html>
