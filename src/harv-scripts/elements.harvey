@@ -12,6 +12,8 @@
   <if <notequal className "undefined"> <body
     <assign newElement.className className>
   >>
+  <reply <var newElement>>
+
 >>
 
 <function updateText id text wipeValue <body

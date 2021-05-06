@@ -1,0 +1,5 @@
+<function MultiplayerChat <body
+  <call element <string "h1"> <string "Multiplayer Chat"> <string "Title"> <string "body">>
+
+  <call element <string "input"> <string "enter message"> <string "input"> <string "body">>
+>>

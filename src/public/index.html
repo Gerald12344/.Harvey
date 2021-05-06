@@ -7,30 +7,10 @@
 	<meta name="description" content="hello">
 	<link href="%public%/index.css" rel="stylesheet" type="text/css" />
   <link href="%public%/test.css" rel="stylesheet" type="text/css" />
-	<title>Test! Ok</title>
+  <link href="%public%/app.css" rel="stylesheet" type="text/css" />
+	<title>HTML complation test!!!!!!!!!!! </title>
 </head>
-
 <body id="body">
   <script src="%build%"></script>
 </body>
-<script>
-	let time = "0"
-  setInterval(async () => {
-    fetch("https://harveylanguage.harveyrandall.repl.co/api/lastupdate").then(function(response) {
-      response.text().then(function(text) {
-        console.log(text)
-        if(time === "0"){
-          time = text
-          return
-        }
-        if(time !== "0" && time !== text){
-          window.location.reload(true);
-        }
-        time = text
-      });
-    });
-  },300)
-
-</script>
-
 </html>

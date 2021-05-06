@@ -7,6 +7,7 @@
 <iWant "./src/components/navbar.harvey">
 <iWant "./src/components/Mathsquiz.harvey">
 <iWant "./src/components/homepage.harvey">
+<iWant "./src/components/MultiplayerChat.harvey">
 
 
 <function RouterRoot <body
@@ -15,12 +16,18 @@
   <"Router points">
   <call RouterPoint <string "/pages"> <true> <var PageTest>>
   <call RouterPoint <string "/mathsQuiz"> <true> <var MathsQuiz>>
+  <call RouterPoint <string "/MultiplayerChat"> <true> <var MultiplayerChat>>
   <call RouterPoint <string "/"> <true> <var Homepage>>
 >>
 
 
 <"First Render (whatever the current url is)">
-<call RouterRoot>
+<letsmake main <call element <string "button"> <string "Click to start Render cycle"> <string "UUID"> <string "body">>>
+<call main.addEventListener <string"click"> <Arrowfunc <body 
+  <sendOut <string "hgere">>
+  <call main.remove>
+  <call RouterRoot>
+>>>
 
 
 <"Montior Window Object for changes">

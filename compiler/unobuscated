@@ -1,0 +1,36 @@
+let textInput = `
+<div id="HarvScriptDevTools">
+  <div style="bottom:0;right:0;position:fixed;margin-right:30px;width:80px;height:80px;overflow:hidden;display: flex;justify-content: center; margin-bottom:30px; border-radius:15px; background-color:#34495e;padding:5px">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif">
+  </div>
+</div>
+`
+
+let time = "0"
+let recompoiling = "0"
+setInterval(async () => {
+  fetch("https://harveylanguage.harveyrandall.repl.co/api/lastupdate").then(function (response) {
+    response.text().then(function (text) {
+      if (time === "0") {
+        time = text
+        return
+      }
+      if (time !== "0" && time !== text) {
+        window.location.reload(true);
+      }
+      time = text
+    });
+  });
+  fetch("https://harveylanguage.harveyrandall.repl.co/api/recompiling").then(function (response) {
+    response.text().then(function (text) {
+      if (recompoiling === "0") {
+        recompoiling = text
+        return
+      }
+      if (recompoiling !== "0" && recompoiling !== text) {
+        document.body.insertAdjacentHTML('beforebegin', textInput)
+      }
+      recompoiling = text
+    });
+  });
+}, 3000)

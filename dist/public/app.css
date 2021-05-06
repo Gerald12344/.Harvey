@@ -1,0 +1,21 @@
+body{
+  top:0;
+  background-color: white;
+}
+/* Yikes this handles the small text */
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  src: local('Poppins'), url(./Poppins-Regular.ttf) format('truetype');
+  font-display: swap;
+}
+/* Bigger Text */
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  src: local('Poppins-Bold'), url(./Poppins-Bold.ttf) format('truetype');
+  font-display: swap;
+}
+.downabit{
+  transform: translate(0,100%);
+}

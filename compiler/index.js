@@ -514,8 +514,13 @@ function compiler(input) {
 const express = require('express');
 const app = express()
 let lastUpdate = Date.now()
+let compileStartTime = Date.now()
 
 let setupCompiler = () => {
+  app.get('/api/recompiling', (req, res) => {
+      res.send(`${compileStartTime}`)
+  })
+  compileStartTime = Date.now()
   fs.readFile(`./${settings.inputFolder}/${settings.inputFile}`, 'utf8', async (err, data) => {
     let input = data
     try{
@@ -541,12 +546,17 @@ let setupCompiler = () => {
     if (settings.dev === true) {
       let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`)
 
+      text = text +  fs.readFileSync(`./compiler/devfiles.html`, 'utf8')
+
       if (!fs.existsSync(`${settings.outputFolder}/public`)) {
         fs.mkdirSync(`${settings.outputFolder}/public`);
       }
 
+    
 
-      fs.writeFileSync(`./${settings.outputFolder}/index.html`, text);
+      //fs.writeFileSync(`./${settings.outputFolder}/devfiles.js`, fs.readFileSync(`./compiler/devfiles.js`, 'utf8'));
+
+      fs.writeFileSync(`./${settings.outputFolder}/index.html`, text.replace(/\r?\n|\r/g,""));
 
       const dir = fs.opendirSync(`${settings.inputFolder}/public/imports`)
       let dirent
