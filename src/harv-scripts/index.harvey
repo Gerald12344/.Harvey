@@ -3,3 +3,4 @@
 <iWant "./src/harv-scripts/handleInput.harvey">
 <iWant "./src/harv-scripts/elements.harvey">
 <iWant "./src/harv-scripts/harv-router.harvey">
+<iWant "./src/harv-scripts/reactfulState.harvey">

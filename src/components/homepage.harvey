@@ -1,7 +1,51 @@
 <function Homepage <body
   <call element <string "h1"> <string "Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM!!!!!!"> <string "Homepage"> <string "body">>
 
-  <call element <string "h1"> <string "Right ok compilation test 999999"> <string "HomepageUnder"> <string "body">>
+  <call element <string "h1"> <string "Right ok compilation test 999999"> <uuid> <string "body">>
 
-  <call element <string "h6"> <string "This might work, please update maybe????"> <string "test"> <string "HomepageUnder">>
+  <call element <string "h1"> <string "Right ok compilation test 999999"> <uuid> <string "body">>
+
+  <call element <string "h6"> <string "This might work, please update maybe????"> <uuid> <string "body">>
+
+  <letsmake MainDiv <uuid>>
+
+  <call element <string "div"> <string ""> <var MainDiv> <string "body">>
+
+  <call element <string "h1"> <string "Inside Div"> <uuid> <var MainDiv>>
+
+  <letsmake pink <string "pink">>
+
+  <letsmake stylesID <uuid>>
+
+  <call element <string "style">  
+    <StringConcat <string "body{color: "> <var pink> <string " !important}">>
+   <var stylesID> <var MainDiv>>
+
+  <assign pink <string "orange">>
+
+  <sendOut pink>
+
+   <letsmake MainUpdater <call createReactiveVariable <string "hello">>>
+
+  <call ReactfulElement <string "h1"> <var MainUpdater> <string "body">>
+
+  <TimeOut 1000 <body
+    <Arrowfunc <body
+    <sendOut <string "thisPArt">>
+    <call updatelement <var stylesID> 
+      <StringConcat <string "body{color: "> <var pink> <string " !important}">>
+    >
+    >>
+  >>
+
+  <" <interval <Arrowfunc <body
+    <assign MainUpdater.update <add <string "Hello there"> <call Date.now>>>
+  >> 1> ">
+
+  <letsmake Output <call prompt <string "Enter Input" >>>
+
+
+  <assign MainUpdater.update <add <string "Hello there "> <var Output>>>
+
+
 >>

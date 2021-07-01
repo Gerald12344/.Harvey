@@ -16,6 +16,12 @@
 
 >>
 
+<function updatelement id inner <body
+  <letsmake FoundParent <call document.getElementById id>>
+  <assign FoundParent.innerHTML inner>
+
+>>
+
 <function updateText id text wipeValue <body
   <letsmake Node <call document.getElementById id>>
   <assign Node.innerHTML text>

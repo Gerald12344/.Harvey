@@ -526,6 +526,7 @@ let setupCompiler = () => {
     try{
       let CompiledJS = await compiler(input)
     }catch(e){
+      logger.error(e)
       logger.warn("FATAL COMPLATION ERROR")
     }
     

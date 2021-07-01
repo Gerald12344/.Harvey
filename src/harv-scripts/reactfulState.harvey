@@ -1,0 +1,13 @@
+<function createReactiveVariable defaultState <body
+    <reply <stateFulVar defaultState>>
+>>
+
+<function ReactfulElement ElementType reactVar parent <body
+    <sendOut <string "hello">>
+    <sendOut <var reactVar.aInternal>>
+    <letsmake Element <call element <var ElementType> <var reactVar.aInternal> <uuid> <var parent>>>
+
+    <listenToState reactVar <Arrowfunc value <body
+        <assign Element.innerHTML value>
+    >>>
+>>

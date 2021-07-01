@@ -32,6 +32,22 @@
       "case": "Multiply",
       "file": "HS5/multiply.js"
     },
+    {
+      "case": "uuid",
+      "file": "HS5/UUID.js"
+    },
+    {
+      "case": "StringConcat",
+      "file": "HS5/PreCompConcat.js"
+    },
+    {
+      "case": "stateFulVar",
+      "file": "HS5/EventDispatcher.js"
+    },
+    {
+      "case": "listenToState",
+      "file": "HS5/registerEventListener.js"
+    },
 
     {
       "case": "sayHello",
