@@ -28,6 +28,8 @@
   <call main.remove>
   <call RouterRoot>
 >>>
+<call main.remove>
+<call RouterRoot>
 
 
 <"Montior Window Object for changes">

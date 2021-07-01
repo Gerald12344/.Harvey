@@ -15,11 +15,13 @@ function PageTest(){setInterval(function input(){if(i === 3){i = 0};let hello = 
 
 function ConstantElements(){Link('/','HomePage','1','body','nav-button');Link('/pages','pages','5','body','nav-button');Link('/mathsQuiz','Maths Quiz','50','body','nav-button');Link('/MultiplayerChat','Multiplayer Chat','55','body','nav-button')}
 function MathsQuiz(){;let Operator = ['+','-'][Math.round((Math.random() * 1))];let firstNum = Math.round((Math.random() * 10));let secondNum = Math.round((Math.random() * 10));let yourScore = 0;let guess = '';element('h1',firstNum + Operator + secondNum,'Question','body');element('h2','Your score is ' + yourScore,'Score','body');;element('input','','QuestionBox','body');element('button','Submit','QuestionSubmit','body');;element('h1','your guess: ','Debug','body','guess');function WorkOutAnswer(){if(Operator === '+'){if(Number(guess) === firstNum + secondNum){yourScore = yourScore + 1}};if(Operator === '-'){if(Number(guess) === (firstNum - secondNum)){yourScore = yourScore + 1}};Operator = ['+','-'][Math.round((Math.random() * 1))];firstNum = Math.round((Math.random() * 10));secondNum = Math.round((Math.random() * 10));updateText('Question',firstNum + Operator + secondNum);updateText('Score','Your score is ' + yourScore);updateText('QuestionSubmit','Submit');updateText('QuestionBox','',true);updateText('Debug','your guess: ')};;MontiorInputs('QuestionBox','keydown',(value,key) => {guess = value;updateText('Debug','your guess: ' + value);if(key === 'Enter'){WorkOutAnswer()}});;MontiorInputs('QuestionSubmit','click',(value) => {WorkOutAnswer()})}
-function Homepage(){element('h1','Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM','Homepage','body');element('h1','Right ok compilation test 1','HomepageUnder','body');element('h6','This might work, please update maybe????','test','HomepageUnder')}
+function Homepage(){element('h1','Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM!!!!!!','Homepage','body');element('h1','Right ok compilation test 999999','HomepageUnder','body');element('h6','This might work, please update maybe????','test','HomepageUnder')}
 function MultiplayerChat(){element('h1','Multiplayer Chat','Title','body');element('input','enter message','input','body')}
 function RouterRoot(){ConstantElements();;RouterPoint('/pages',true,PageTest);RouterPoint('/mathsQuiz',true,MathsQuiz);RouterPoint('/MultiplayerChat',true,MultiplayerChat);RouterPoint('/',true,Homepage)}
 
 let main = element('button','Click to start Render cycle','UUID','body')
 main.addEventListener('click',() => {console.log('hgere');main.remove();RouterRoot()})
+main.remove()
+RouterRoot()
 
 WindowMonitor(RouterRoot)

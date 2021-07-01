@@ -1,7 +1,7 @@
 <function Homepage <body
-  <call element <string "h1"> <string "Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM"> <string "Homepage"> <string "body">>
+  <call element <string "h1"> <string "Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM!!!!!!"> <string "Homepage"> <string "body">>
 
-  <call element <string "h1"> <string "Right ok compilation test 1"> <string "HomepageUnder"> <string "body">>
+  <call element <string "h1"> <string "Right ok compilation test 999999"> <string "HomepageUnder"> <string "body">>
 
   <call element <string "h6"> <string "This might work, please update maybe????"> <string "test"> <string "HomepageUnder">>
 >>
