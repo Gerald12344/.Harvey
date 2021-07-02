@@ -1,2 +1,12 @@
 language = "nodejs"
 run = "node ./compiler/index.js --trace-warnings --max-old-space-size=4096"
+
+<function input
+    <body
+      <if <equal <var i> 3> <body 
+        <assign <var i> 0>
+      >>
+      <letsmake hello <get <string "MainText">>>
+      <assign hello.style.color <itterate colors i>>
+      <assign i <add i 1>>
+    >>

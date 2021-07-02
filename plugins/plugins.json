@@ -13,6 +13,14 @@
       "file": "HS5/whileLoop.js"
     },
     {
+      "case": "comment",
+      "file": "HS5/JSComment.js"
+    },
+    {
+      "case": "join",
+      "file": "HS5/join.js"
+    },
+    {
       "case": "interval",
       "file": "HS5/interval.js"
     },

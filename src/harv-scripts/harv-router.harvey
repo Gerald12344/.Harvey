@@ -1,5 +1,13 @@
+<letsmake OpenFuns <array>>
+
 <function WindowMonitor ReturnFunc <body
   <assign history.move <Arrowfunc body <body
+    <loop "i" OpenFuns.length 1 <body 
+      <letsmake item <itterate OpenFuns <var i>>>
+      <if <notequal item <undefined>> <body
+        <call item>
+      >>
+    >>
     <letsmake Root document.body>
     <assign Root.innerHTML <string "">>
     <call history.pushState <string ""> <string ""> <var body>>
@@ -10,12 +18,12 @@
 <function RouterPoint location exact component <body
   <if exact <body
     <if <equal window.location.pathname <var location>> <body
-      <call component>
+      <call OpenFuns.push <call component>>
     >> 
   >>
   <if <equal exact false> <body
     <if <call window.location.pathname.startsWith <var location>> <body
-      <call component>
+      <call OpenFuns.push <call component>>
     >> 
   >>
 >> 

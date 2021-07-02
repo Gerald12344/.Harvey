@@ -1,5 +1,6 @@
 <"Harv FrameWork Scripts">
 
+<iWant "./src/harv-scripts/StartHarvScript.harvey">
 <iWant "./src/harv-scripts/handleInput.harvey">
 <iWant "./src/harv-scripts/elements.harvey">
 <iWant "./src/harv-scripts/harv-router.harvey">

@@ -352,7 +352,11 @@ function codeGenerator(node) {
           let inputing = (node.arguments.map(codeGenerator)[1]);
           return (`let ${(node.arguments.map(codeGenerator)[0]).replace('"', '').replace('"', '')} = ${inputing}`)
 
-
+        case 'object':
+          if(node.arguments.map(codeGenerator).length === 0){
+            return(`{}`)
+          }
+          return (`{${node.arguments.map(codeGenerator)[0]}: ${node.arguments.map(codeGenerator)[1]}}`)
         case 'if':
           return (`if(${node.arguments.map(codeGenerator)[0]})`)
         case 'after':

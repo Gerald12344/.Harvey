@@ -24,7 +24,6 @@
 <"First Render (whatever the current url is)">
 <letsmake main <call element <string "button"> <string "Click to start Render cycle"> <string "UUID"> <string "body">>>
 <call main.addEventListener <string"click"> <Arrowfunc <body 
-  <sendOut <string "hgere">>
   <call main.remove>
   <call RouterRoot>
 >>>

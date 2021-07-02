@@ -23,29 +23,42 @@
 
   <assign pink <string "orange">>
 
-  <sendOut pink>
 
+   <"All Hooks are defined here">
    <letsmake MainUpdater <call createReactiveVariable <string "hello">>>
+   <letsmake MainStyleSheet <call createReactiveVariable <string "h1{font-size:1em}">>>
 
   <call ReactfulElement <string "h1"> <var MainUpdater> <string "body">>
+  <call ReactfulElement <string "style"> <var MainStyleSheet> <string "head">>
 
   <TimeOut 1000 <body
     <Arrowfunc <body
-    <sendOut <string "thisPArt">>
     <call updatelement <var stylesID> 
       <StringConcat <string "body{color: "> <var pink> <string " !important}">>
     >
     >>
   >>
 
-  <" <interval <Arrowfunc <body
+
+
+
+  <letsmake TemplateElement <call reactiveTemplate <array <string "Test"> <string "val2">> <array <string "this is a test"> <string "Val  2 2">> 
+    <string "This is the test here %{Test}% %{val2}%">
+  <string "h2"> <string "body">>>
+
+
+  <call updateTemplate <string "Test"> <string "another test"> TemplateElement>
+  <call updateTemplate <string "Test"> <string "another test 6"> TemplateElement>
+  <call updateTemplate <string "val2"> <string "Harvey is realllllly dfgfdjgjdfgjid"> TemplateElement>
+
+  <interval <Arrowfunc <body
+    <call updateTemplate <string "val2"> <call Date.now> TemplateElement>
     <assign MainUpdater.update <add <string "Hello there"> <call Date.now>>>
-  >> 1> ">
-
-  <letsmake Output <call prompt <string "Enter Input" >>>
+  >> 1> 
 
 
-  <assign MainUpdater.update <add <string "Hello there "> <var Output>>>
+
+  
 
 
 >>

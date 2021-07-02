@@ -3,11 +3,54 @@
 >>
 
 <function ReactfulElement ElementType reactVar parent <body
-    <sendOut <string "hello">>
-    <sendOut <var reactVar.aInternal>>
     <letsmake Element <call element <var ElementType> <var reactVar.aInternal> <uuid> <var parent>>>
 
     <listenToState reactVar <Arrowfunc value <body
         <assign Element.innerHTML value>
     >>>
+>>
+
+
+<function reactiveTemplate predefinedVars defaultValueArray valueTemplate typeIn parent <body
+    <"Setup reactive vaiable">
+    <letsmake Var <stateFulVar valueTemplate>>
+
+    <"Save template to variable">
+    <assign Var.acompanyingData valueTemplate>
+
+    <"Add default values">
+
+    <letsmake MetaData <object>>
+
+    <loop "i" predefinedVars.length 1 <body 
+        <assign <itterate MetaData <itterate predefinedVars <var i>>> <itterate defaultValueArray <var i>>>
+        <assign valueTemplate <call valueTemplate.replaceAll <StringConcat <string "%{"> <itterate predefinedVars <var i>> <string "}%">> <itterate defaultValueArray <var i>>>>
+    >>
+
+    <assign Var.update valueTemplate>
+    <assign Var.eventMoreData MetaData>
+
+    <call ReactfulElement typeIn Var parent>
+
+    <reply Var>
+
+>>
+
+
+<function updateTemplate varToUpdate newVal reactfulElement <body
+    <"First get the template">
+    <letsmake Template reactfulElement.acompanyingData>
+    <letsmake ExistingData reactfulElement.eventMoreData>
+
+     <assign <itterate ExistingData <var varToUpdate>> <var newVal>>
+
+     <assign reactfulElement.eventMoreData ExistingData>
+
+
+    <loop "i" <join <call Object.entries ExistingData>.length> 1 <body 
+        <assign Template <call Template.replaceAll <StringConcat <string "%{"> <itterate <itterate <call Object.entries ExistingData> <var i>> 0> <string "}%">> <itterate <itterate <call Object.entries ExistingData> <var i>> 1>>>
+    >>
+
+
+    <assign reactfulElement.update Template>
 >>
