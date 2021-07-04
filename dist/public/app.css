@@ -1,6 +1,7 @@
 body{
   top:0;
-  background-color: white;
+  background-color: #2f3640;
+  color:white;
 }
 /* Yikes this handles the small text */
 @font-face {

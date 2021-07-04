@@ -1,0 +1,66 @@
+<function Homepage <body
+  <call element <string "h1"> <string "Welcome to MY SUPER COOL website this website it purely written in the .Harvey framework which manipulates the DOM!!!!!!"> <string "Homepage"> <string "body">>
+
+  <call element <string "h1"> <string "Right ok compilation test 999999"> <uuid> <string "body">>
+
+  <call element <string "h1"> <string "Right ok compilation test 999999"> <uuid> <string "body">>
+
+  <call element <string "h6"> <string "This might work, please update maybe????"> <uuid> <string "body">>
+
+  <letsmake MainDiv <uuid>>
+
+  <call element <string "div"> <string ""> <var MainDiv> <string "body">>
+
+  <call element <string "h1"> <string "Inside Div"> <uuid> <var MainDiv>>
+
+  <letsmake pink <string "pink">>
+
+  <letsmake stylesID <uuid>>
+
+  <call element <string "style">  
+    <StringConcat <string "body{color: "> <var pink> <string " !important}">>
+   <var stylesID> <var MainDiv>>
+
+  <assign pink <string "orange">>
+
+
+   <"All Hooks are defined here">
+   <letsmake MainUpdater <call createReactiveVariable <string "hello">>>
+   <letsmake MainStyleSheet <call createReactiveVariable <string "h1{font-size:1em}">>>
+
+  <call ReactfulElement <string "h1"> <var MainUpdater> <string "body">>
+  <call ReactfulElement <string "style"> <var MainStyleSheet> <string "head">>
+
+  <TimeOut 1000 <body
+    <Arrowfunc <body
+    <call updatelement <var stylesID> 
+      <StringConcat <string "body{color: "> <var pink> <string " !important}">>
+    >
+    >>
+  >>
+
+
+
+
+  <letsmake TemplateElement <call reactiveTemplate 
+    <array <string "Test"> <string "val2">> 
+    <array <string "this is a test"> <string "Val  2 2">> 
+      <string "This is the test here %{Test}% %{val2}%">
+  <string "h2"> <string "body">>>
+
+
+  <call updateTemplate <string "Test"> <string "another test"> TemplateElement>
+  <call updateTemplate <string "Test"> <string "another test 6 dhkjdgshkjgfhjkfgdhjk"> TemplateElement>
+  <call updateTemplate <string "val2"> <string "Harvey is realllllly dfdfgfdgfdgfdgdfdgfdgfdgdgfgfdgdfgdfg"> TemplateElement>
+
+  <interval <Arrowfunc <body
+    <call updateTemplate <string "val2"> <call Date.now> TemplateElement>
+    <assign MainUpdater.update <add <string "Hello there"> <call Date.now>>>
+  >> 1> 
+
+
+
+  
+
+
+>>

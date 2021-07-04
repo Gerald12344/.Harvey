@@ -2,12 +2,54 @@
     <reply <stateFulVar defaultState>>
 >>
 
-<function ReactfulElement ElementType reactVar parent <body
-    <letsmake Element <call element <var ElementType> <var reactVar.aInternal> <uuid> <var parent>>>
+<function ReactfulElement ElementType reactVar parent UUID ClassName <body
+    <if <equal UUID <undefined>> <body
+        <assign UUID <uuid>>
+    >>
+    
+    <if <equal <string "string"> <typeof reactVar> > <body
+        <if <equal ClassName <undefined>> <body
+            <assign <var ClassName> <var <object>>>
+        >>
+        <if <and <equal ClassName.aListener <undefined>> <notequal <var ClassName> <undefined>>> <body
+            <letsmake defaultState <var ClassName>>
+            <assign <var ClassName> <var <object>>>
+            <assign ClassName.aInternal <var defaultState>>
+        >>
+        <letsmake Element <call element <var ElementType> <var reactVar> <var UUID> <var parent> <var ClassName.aInternal>>>
+        <letsmake returnObj <object>>
 
-    <listenToState reactVar <Arrowfunc value <body
+        <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
+            <MultiState ClassName <Arrowfunc value <body
+                <assign Element.className value>
+            >>>
+        >>
+        <assign <itterate returnObj <string "UUID">> UUID>
+        <assign <itterate returnObj <string "Element">> Element>
+        <reply <var returnObj>>
+    >>
+
+    <if <equal ClassName <undefined>> <body
+        <assign <var ClassName> <var <object>>>
+    >>
+
+
+    <letsmake Element <call element <var ElementType> <var reactVar.aInternal> <var UUID> <var parent> <var ClassName.aInternal>>>
+
+    <MultiState reactVar <Arrowfunc value <body
         <assign Element.innerHTML value>
     >>>
+
+    <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
+        <MultiState ClassName <Arrowfunc value <body
+            <assign Element.className value>
+        >>>
+    >>
+
+    <letsmake returnObj <object>>
+    <assign <itterate returnObj <string "UUID">> UUID>
+    <assign <itterate returnObj <string "Element">> Element>
+    <reply <var returnObj>>
 >>
 
 
@@ -53,4 +95,74 @@
 
 
     <assign reactfulElement.update Template>
+>>
+
+<function generateTemplateWithElement predefinedVars defaultValueArray valueTemplate <body
+     <"Setup reactive vaiable">
+    <letsmake Var <stateFulVar valueTemplate>>
+
+    <"Save template to variable">
+    <assign Var.acompanyingData valueTemplate>
+
+    <"Add default values">
+
+    <letsmake MetaData <object>>
+
+    <loop "i" predefinedVars.length 1 <body 
+        <assign <itterate MetaData <itterate predefinedVars <var i>>> <itterate defaultValueArray <var i>>>
+        <assign valueTemplate <call valueTemplate.replaceAll <StringConcat <string "%{"> <itterate predefinedVars <var i>> <string "}%">> <itterate defaultValueArray <var i>>>>
+    >>
+
+    <assign Var.update valueTemplate>
+    <assign Var.eventMoreData MetaData>
+
+
+    <reply Var>
+>>
+
+<function generateModernTemplate template <body
+    <letsmake templateIn <call template.match  "/\%{(.*?)\}%/gm">>
+
+    <letsmake variables <array>>
+    <letsmake defaultValues <array>>
+
+    <forArray <var templateIn> <Arrowfunc <var e> <body
+        <assign <var e> <call e.split <string "">>>
+        <call e.splice 0 2>
+        <call e.splice <subtract <var e.length> 2> 2>
+        <assign e <call e.join <string "">>>
+        <letsmake dataInToFunc <call e.split <string "|">>>
+        <call variables.push <itterate dataInToFunc 0>>
+        <call defaultValues.push <itterate dataInToFunc 1>>
+    >>>
+
+    <"Set up the template string">
+    <letsmake firstStage <call template.replace "/\%{(.*?)\}%/gm" <string "%%HARVEY_VARIABLE%%">>>
+    <letsmake almostDone <call firstStage.split <string "%%"> > <call template.replace "/\%{(.*?)\}%/gm"> >
+
+    <letsmake occurence 0>
+    <letsmake justifiedOut <array>>
+
+    <forArray almostDone <Arrowfunc e <body
+        <if <equal <var e> <string "HARVEY_VARIABLE">> <body
+            <call justifiedOut.push <StringConcat <string "%{"> <itterate variables occurence> <string "}%">>>
+            <assign occurence <add <var occurence> 1>>
+            <return>
+        >>
+        <call justifiedOut.push <var e>>
+    >>>
+
+    <letsmake templateDone <call justifiedOut.join <string "">>>
+
+    <letsmake TemplateOut <call generateTemplateWithElement variables defaultValues templateDone>>
+
+    <reply TemplateOut>
+>>
+
+<function ElementMaker typeIn defaultValue parent <body
+    <letsmake Title <call createReactiveVariable <var defaultValue>>>
+    <letsmake UUID <call ReactfulElement <var typeIn> <var Title> <var parent>>>
+
+    <assign Title.UUID <var UUID>>
+    <reply Title>
 >>

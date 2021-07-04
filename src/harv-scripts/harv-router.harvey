@@ -13,6 +13,21 @@
     <call history.pushState <string ""> <string ""> <var body>>
     <call ReturnFunc>
   >>>
+
+  <assign window.onpopstate <Arrowfunc <body
+  <sendOut <var window.location.pathname>>
+    <loop "i" OpenFuns.length 1 <body 
+      <letsmake item <itterate OpenFuns <var i>>>
+      <if <notequal item <undefined>> <body
+        <call item>
+      >>
+    >>
+    <letsmake Root document.body>
+    <assign Root.innerHTML <string "">>
+    <call history.pushState <string ""> <string ""> <var window.location.pathname>>
+    <call ReturnFunc>
+  >>>
+
 >>
 
 <function RouterPoint location exact component <body

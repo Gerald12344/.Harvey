@@ -29,3 +29,9 @@
     <assign Node.value text>
   >>
 >>
+
+<function removeComponents ArrayIn <body 
+  <forArray ArrayIn <Arrowfunc e <body
+    <call e.Element.remove>
+  >>>
+>>

@@ -1,63 +1,6 @@
 {
   "plugins": [
     {
-      "case": "openFile",
-      "file": "HS5/openFile.js"
-    },
-    {
-      "case": "writeFile",
-      "file": "HS5/writeFile.js"
-    },
-    {
-      "case": "While",
-      "file": "HS5/whileLoop.js"
-    },
-    {
-      "case": "comment",
-      "file": "HS5/JSComment.js"
-    },
-    {
-      "case": "join",
-      "file": "HS5/join.js"
-    },
-    {
-      "case": "interval",
-      "file": "HS5/interval.js"
-    },
-    {
-      "case": "listen",
-      "file": "HS5/eventListener.js"
-    },
-    {
-      "case": "TimeOut",
-      "file": "HS5/Timeout.js"
-    },
-    {
-      "case": "Num",
-      "file": "HS5/num.js"
-    },
-    {
-      "case": "Multiply",
-      "file": "HS5/multiply.js"
-    },
-    {
-      "case": "uuid",
-      "file": "HS5/UUID.js"
-    },
-    {
-      "case": "StringConcat",
-      "file": "HS5/PreCompConcat.js"
-    },
-    {
-      "case": "stateFulVar",
-      "file": "HS5/EventDispatcher.js"
-    },
-    {
-      "case": "listenToState",
-      "file": "HS5/registerEventListener.js"
-    },
-
-    {
       "case": "sayHello",
       "file": "example.js"
     }

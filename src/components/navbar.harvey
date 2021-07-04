@@ -1,6 +1,76 @@
-<function ConstantElements <body
-  <call Link <string "/"> <string "HomePage"> <string "1"> <string "body"> <string "nav-button"> >
-  <call Link <string "/pages"> <string "pages"> <string "5"> <string "body"> <string "nav-button"> >
-  <call Link <string "/mathsQuiz"> <string "Maths Quiz"> <string "50"> <string "body"> <string "nav-button"> >
-  <call Link <string "/MultiplayerChat"> <string "Multiplayer Chat"> <string "55"> <string "body"> <string "nav-button"> >
+
+<function NavBarMaker EntryLevel <body
+    <letsmake Home <string "notActive">>
+    <letsmake News <string "notActive">>
+    <letsmake Contact <string "notActive">>
+    <letsmake About <string "notActive">>
+
+    <letsmake currentLocation window.location.pathname>
+    <if <equal currentLocation <string "/">> <body
+        <assign Home <string "active">>
+    >>
+    <if <equal currentLocation <string "/News">> <body
+        <assign News <string "active">>
+    >>
+    <if <equal currentLocation <string "/Contact">> <body
+        <assign Contact <string "active">>
+    >>
+    <if <equal currentLocation <string "/About">> <body
+        <assign About <string "active">>
+    >>
+
+    <render <var EntryLevel> 
+        <ul <empty> <empty> 
+            <li <empty> <var Home> <a <string "Home"> <var Home> <string "/"> <empty>>>
+            <li <empty> <var News> <a <string "News"> <var News> <string "/News"> <empty>>>
+            <li <empty> <var Contact> <a <string "Contact"> <var Contact> <string "/Contact"> <empty>>>
+            <li <empty> <var About> <a <string "About"> <var About> <string "/About"> <empty>>>
+        >
+
+        <style <scss "
+            body {
+                margin:0;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+
+            li {
+                float: left;
+            }
+            button {
+                background-color: #333;
+                font-size:1.3em;
+                border:none;
+            }
+
+            li button {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li button:hover:not(.active) {
+                background-color: #111;
+            }
+            li button:hover.active {
+                background-color: darken(#04AA6D, 6);
+            }
+
+            .active > button {
+                background-color: #04AA6D;
+            }
+
+        "> <empty> <string "body">>
+    >
 >>

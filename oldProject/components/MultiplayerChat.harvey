@@ -1,0 +1,52 @@
+<function MultiplayerChat <body
+
+  <"This is a cool compiler test">
+
+  <"Basic Structure">
+  <letsmake Title <call ElementMaker <string "h1"> <string "This is a Multiplayer chat app as a proof of concept"> <string "body">>>
+  <call element <string "input"> <string "enter message"> <string "input"> <string "body">>
+  <letsmake UnderCard <call ElementMaker <string "h3"> <string "Awaiting Messages..."> <string "body">>>
+
+
+  <"listen for updates to box">
+  <call MontiorInputs <string "input"> <string "keydown"> <Arrowfunc value key    
+    <body
+      <assign UnderCard.update <var value>>
+    >
+  >>
+
+  <TimeOut 5000 <Arrowfunc <body
+    <assign UnderCard.update <string "test">>
+  >>>
+
+  <assign Title.update <string "new value">>
+
+  <call element <string "h1"> <string "Multiplayer Chat"> <string "Title"> <string "body">>
+
+>>
+
+<function NewComponent <body
+  <letsmake UnderCard <call createReactiveVariable <string "hello">>>
+
+
+  <render <string "body">
+    <hOne <var UnderCard> <var UnderCard>>
+    <div <empty> <string "MainDiv">
+      <hOne <string "Another Test">>
+    >
+    <hOne <var UnderCard>>
+  >
+
+  <TimeOut 5000 <Arrowfunc <body
+    <assign UnderCard.update <string "test">>
+  >>>
+
+  <call element <string "style"> <string "
+    .hello{
+      color:blue;
+    }
+    .test{
+      font-size:3em;
+    }
+  "> <uuid> <string "body">>
+>>

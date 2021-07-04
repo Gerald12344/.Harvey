@@ -1,0 +1,44 @@
+
+<function Homepage <body
+    <"declare states at the top">
+
+     <render <string "body">
+
+       <div <empty> <string "centerDiv">
+            <hOne <string "Harvey Randall"> <string "CenterPage">>
+            <p <string "Creating the Next Generation of Computer Science"> <string "CenterPage">>
+        > 
+
+        <div <empty> <string "underMainDiv">
+            <hThree <string "test test">>
+        >
+
+
+
+
+
+        <style <scss "
+            .CenterPage{
+                text-align:center;
+            }
+            h1,p{
+                font-size:8em;
+                margin-bottom:0px;
+                & > div {
+                    color:pink;
+                }
+            }
+            p,p {
+                font-size:4em;
+            }
+            .centerDiv{
+                justify-content:center;
+                display:flex;
+                flex-direction:column;
+                height:85vh
+            }
+        "> <empty>>
+    >
+
+
+>>

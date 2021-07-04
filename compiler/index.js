@@ -369,6 +369,8 @@ function codeGenerator(node) {
           return (`{${node.arguments.map(codeGenerator)[0]}}`)
         case 'body':
           return (`${node.arguments.map(codeGenerator).join(';')}`)
+        case 'typeof':
+          return (`typeof ${node.arguments.map(codeGenerator)[0]}`)
         case 'var':
           return (node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''))
         case 'return':
@@ -395,7 +397,7 @@ function codeGenerator(node) {
         case 'assign':
           return (`${node.arguments.map(codeGenerator)[0]} = ${node.arguments.map(codeGenerator)[1]}`)
         case 'string':
-          return (`'${node.arguments.map(codeGenerator)}'`)
+          return (`'${node.arguments.map(codeGenerator).map(e => { return `${e}`.replace("/\n/g","").replace(/\s\s+/g, ' ')})}'`)
         case 'array':
           return (`[${node.arguments.map(codeGenerator).join(',')}]`)
         case 'itterate':
@@ -437,7 +439,11 @@ function CompiledOtherFiles(input) {
 
 function loadPlugins() {
   let pluginSettings = require(`../${settings.pluginsFolder}/${settings.pluginsSettings}`)
+  let harvscript = require(`../${settings.pluginsFolder}/HS5/plugins.json`)
   pluginSettings.plugins.forEach(element => {
+    commands[element.case] = require(`../${settings.pluginsFolder}/${element.file}`)
+  })
+  harvscript.plugins.forEach(element => {
     commands[element.case] = require(`../${settings.pluginsFolder}/${element.file}`)
   })
 }

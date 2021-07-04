@@ -1,35 +1,30 @@
-<"Harv FrameWork Scripts">
+<"Ok first website written entirely in .harvey">
+
+<"First thing first make sure we need to get all of the Harvey Framework functions">
 <iWant "./src/harv-scripts/index.harvey">
 
+<"To save on data transfers all components are compiled once only">
+<iWant "./src/pages/ComponentPreImportor.harvey">
 
-<"Components">
-<iWant "./src/components/index.harvey">
-<iWant "./src/components/navbar.harvey">
-<iWant "./src/components/Mathsquiz.harvey">
-<iWant "./src/components/homepage.harvey">
-<iWant "./src/components/MultiplayerChat.harvey">
+<"Request Homepage">
+<iWant "./src/pages/AppEntry.harvey">
+
+<call generateModernTemplate <string "Test string %{test|Default value}% more tests %{test2|Default value dfgjkdjkfg}%">>
 
 
+<" We start with just the homepage">
 <function RouterRoot <body
-  <call ConstantElements>
+
+  <"We import the Nav Bar component">
+  <call NavBarMaker <string "body">>
 
   <"Router points">
-  <call RouterPoint <string "/pages"> <true> <var PageTest>>
-  <call RouterPoint <string "/mathsQuiz"> <true> <var MathsQuiz>>
-  <call RouterPoint <string "/MultiplayerChat"> <true> <var MultiplayerChat>>
   <call RouterPoint <string "/"> <true> <var Homepage>>
 >>
 
 
-<"First Render (whatever the current url is)">
-<letsmake main <call element <string "button"> <string "Click to start Render cycle"> <string "UUID"> <string "body">>>
-<call main.addEventListener <string"click"> <Arrowfunc <body 
-  <call main.remove>
-  <call RouterRoot>
->>>
-<call main.remove>
+<"Start Harvscript Router and clear webpage">
 <call RouterRoot>
-
 
 <"Montior Window Object for changes">
 <call WindowMonitor <var RouterRoot>>
