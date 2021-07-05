@@ -4,6 +4,12 @@
     <assign newElement.innerHTML <var text>>
     <assign newElement.id <var id>>
     <letsmake FoundParent <call document.getElementById parent>>
+    <if <equal <var parent> <string "body">> <body
+      <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
+    >>
+    <if <equal <var parent> <string "head">> <body
+      <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
+    >>
     <call FoundParent.appendChild <var newElement>>
   >>
   <if <notequal <call document.getElementById <var id>> null> <body 

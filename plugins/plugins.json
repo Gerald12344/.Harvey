@@ -3,6 +3,10 @@
     {
       "case": "sayHello",
       "file": "example.js"
+    },
+    {
+      "case": "NumtoWords",
+      "file": "NumberToWords.js"
     }
   ]
 }

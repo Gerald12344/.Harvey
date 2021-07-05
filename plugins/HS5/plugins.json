@@ -76,6 +76,10 @@
         "case": "Template",
         "file": "HS5/Template.js"
       },
+      {
+        "case": "flatten",
+        "file": "HS5/flatten.js"
+      },
       
 
 
@@ -123,6 +127,10 @@
       {
         "case": "li",
         "file": "HS5/HTML_Tags/li.js"
+      },
+      {
+        "case": "footer",
+        "file": "HS5/HTML_Tags/footer.js"
       }
 
     ]

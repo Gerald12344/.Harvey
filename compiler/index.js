@@ -1,19 +1,20 @@
-'use strict';
-//Please don't steal took ages
-
-//Big thanks to the https://github.com/jamiebuilds/the-super-tiny-compiler for insipration and help with the tokeniser and paser and other parts.
+// (c) - Harvey Randall 2020-2021
 
 'use strict';
 //Please don't steal took ages
 
 //Big thanks to the https://github.com/jamiebuilds/the-super-tiny-compiler for insipration and help with the tokeniser and paser and other parts.
 
-var logger = require("winston-color");
-let fs = require('fs')
-let settings = require("../harveySettings.json")
+const logger = require("winston-color");
+const fs = require('fs')
+const settings = require("../harveySettings.json")
+const path = require('path')
+const headers = require('./niceStuff.json')
+const browserify = require('browserify');
+
 require('pretty-error').start();
-var Prepack = require("prepack");
-let path = require('path')
+
+let modules = []
 
 let commands = {}
 let pluginDependecies = {}
@@ -336,7 +337,8 @@ function codeGenerator(node) {
           return (`return(new Promise((${node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', '')}, ${node.arguments.map(codeGenerator)[1].replace('"', '').replace('"', '')}) => {${promiseArray.join(';')}}))`)
 
         case 'iNeed':
-          return (`require(${node.arguments.map(codeGenerator)})`)
+          modules.push(node.arguments.map(codeGenerator))
+          return (`require("${node.arguments.map(codeGenerator)}")`)
         case 'iWant':
           let data = fs.readFileSync(node.arguments.map(codeGenerator)[0].replace('"', '').replace('"', ''), 'utf-8')
           let response = CompiledOtherFiles(data)
@@ -454,9 +456,41 @@ function uniq(a) {
     return seen.hasOwnProperty(item) ? false : (seen[item] = true);
   });
 }
+function browserifyModules(){
+  if(settings.browserify){
+    var b = browserify();
+    modules.forEach((e) => {
+      b.require(e)
+    })
+    if (!fs.existsSync(`${settings.outputFolder}/packages`)) {
+      fs.mkdirSync(`${settings.outputFolder}/packages`);
+    }
+    let file = require('fs').createWriteStream(`./${settings.outputFolder}/packages/HarvScript_Bundle_1.js`);
+    file.write(headers.headers + `
+* 
+*      * ____________________________________________________________________ *      
+*      *                     (c) Harvey Randall - 2021                        *
+*      *                   https://github.com/Gerald12344                     *
+*      * This final contains all the JS imports required to use the website   *
+*      * For lisencing and stuff check the github page, and start the project *
+*      * ____________________________________________________________________ *
+*  
+* “A day may come when the courage of men fails, when we forsake our friends and break all bonds of fellowship, but it is not this day.“ 
+* - Harvey Randall 2021
+*/\n`)
+    let stream = b.bundle().pipe(file)
+    return new Promise(resolve => {
+      stream.on('finish', () => {
+        resolve()
+      })
+    })
+  }
+  
+}
 
 var JavaScriptObfuscator = require('javascript-obfuscator');
-function compiler(input) {
+async function compiler(input) {
+  modules = []
   if (settings.debug) {
     logger.debug(`Loading Plugins`)
   }
@@ -495,7 +529,6 @@ function compiler(input) {
   }
   let Dependencies2 = uniq(FileDependencies)
   output = Dependencies2.join(';') + output
-  let headers = require('./niceStuff.json')
 
   if (settings.debugFile === true) {
     fs.writeFileSync(`./${settings.outputFolder}/${settings.debugFileLocation}/${settings.debugFileName}`, (output), (err) => {
@@ -513,6 +546,7 @@ function compiler(input) {
     logger.error('Yikes, Error writing to ouput file.');
     process.exit(1)
   });
+  await browserifyModules()
   console.log('\x1b[34m', 'Code Compiled.');
   console.log('\x1b[36m', '[=======================]');
   return output
@@ -555,7 +589,7 @@ let setupCompiler = () => {
     }
     lastUpdate = Date.now()
     if (settings.dev === true) {
-      let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`)
+      let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`).replace(/<!-- {{%Bundle%}} -->/g,  `<script src="./packages/HarvScript_Bundle_1.js"></script>`)
 
       text = text +  fs.readFileSync(`./compiler/devfiles.html`, 'utf8')
 

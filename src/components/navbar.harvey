@@ -25,11 +25,15 @@
             <li <empty> <var News> <a <string "News"> <var News> <string "/News"> <empty>>>
             <li <empty> <var Contact> <a <string "Contact"> <var Contact> <string "/Contact"> <empty>>>
             <li <empty> <var About> <a <string "About"> <var About> <string "/About"> <empty>>>
+            <li <empty> <string "floatRight"> <a <string "Login"> <string "notactive"> <string "/login"> <empty>>>
         >
 
         <style <scss "
             body {
                 margin:0;
+            }
+            .floatRight{
+                float:right;
             }
 
             ul {

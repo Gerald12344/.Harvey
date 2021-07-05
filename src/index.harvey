@@ -2,6 +2,8 @@
 
 <"First thing first make sure we need to get all of the Harvey Framework functions">
 <iWant "./src/harv-scripts/index.harvey">
+<iNeed "axios">
+
 
 <"To save on data transfers all components are compiled once only">
 <iWant "./src/pages/ComponentPreImportor.harvey">
@@ -20,11 +22,20 @@
 
   <"Router points">
   <call RouterPoint <string "/"> <true> <var Homepage>>
+
+
+  <"Footer">
+  <call footer <string "body">>
 >>
 
 
-<"Start Harvscript Router and clear webpage">
-<call RouterRoot>
 
-<"Montior Window Object for changes">
-<call WindowMonitor <var RouterRoot>>
+
+<"First wait for all content to load, especially bundle">
+<call window.addEventListener <string "load"> <Arrowfunc <body
+  <"Start Harvscript Router and clear webpage">
+  <call RouterRoot>
+
+  <"Now monitor the window for any url changes">
+  <call WindowMonitor <var RouterRoot>>
+>>>

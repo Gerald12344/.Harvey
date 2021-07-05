@@ -1,0 +1,29 @@
+<letsmake CurrentOn 0>
+<function ProjectCards parentIn titleCard titleDescription titleUrl titleImage <body
+    <letsmake elementID <NumtoWords CurrentOn>>
+    <assign <var CurrentOn> <add <var CurrentOn> 1>>
+
+    <" The core CSS styling is a harv script template with inserted values">
+    <letsmake Template <call generateModernTemplate <flatten "
+        .%{uuid|RandomTestVaraiable}%{
+            background-image: url(%{ImageURL|}%);
+        }
+    ">>>
+
+    <call updateTemplate <string "uuid"> <StringConcat <string "PRODUCT_CARD_VALUE_"> <var elementID>> <var Template>>
+    <call updateTemplate <string "ImageURL"> <var titleImage> <var Template>>
+
+
+    <render <var parentIn>
+        <div <empty> <string "cardMain">
+            <div <empty> <StringConcat <string "imageLocation "> <StringConcat <string "PRODUCT_CARD_VALUE_"> <var elementID>> >>
+            <div <empty> <string "cardTextLocation">
+                <hOne <var titleCard>>
+                <p <var titleDescription>>
+                <a <string "View Project on Github"> <string "GithubButton"> <var titleUrl>>
+            >
+            <style <var Template> <empty>>
+        >
+    >
+
+>>

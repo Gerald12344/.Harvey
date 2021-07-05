@@ -121,6 +121,7 @@
 >>
 
 <function generateModernTemplate template <body
+    <assign template <call template.replace "/\n/g" <string "">>>
     <letsmake templateIn <call template.match  "/\%{(.*?)\}%/gm">>
 
     <letsmake variables <array>>

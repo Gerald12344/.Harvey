@@ -8,9 +8,9 @@ module.exports = {
         let Children = input.join(";");
         let secondPart = "";
         if (Children !== "") {
-          secondPart = `((parent) => {${Children}})("${uuid}")`;
+          secondPart = `((parent) => {${Children}})(InternalUUID)`;
         }
-        return `(() => {let ElementWeWant = ReactfulElement('h1',${Parent},parent, "${uuid}", ${className}); components.push(ElementWeWant); ${secondPart}})();`;
+        return `(() => {let InternalUUID = uuidv4(); let ElementWeWant = ReactfulElement('h1',${Parent},parent, InternalUUID, ${className}); components.push(ElementWeWant); ${secondPart}})();`;
     },
     Dependencies: function () {
         return false;
