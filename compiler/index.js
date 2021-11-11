@@ -12,7 +12,6 @@ const path = require('path')
 const headers = require('./niceStuff.json')
 const browserify = require('browserify');
 
-require('pretty-error').start();
 
 let modules = []
 
