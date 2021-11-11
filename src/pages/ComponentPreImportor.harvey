@@ -1,5 +1,10 @@
 <"All components must be defined here">
 
+<iWant "./src/components/globalCSS.harvey">
 <iWant "./src/components/navbar.harvey">
 <iWant "./src/components/footer.harvey">
 <iWant "./src/components/ProjectCard.harvey">
+
+
+<iWant "./src/pages/news.harvey">
+<iWant "./src/pages/AppEntry.harvey">

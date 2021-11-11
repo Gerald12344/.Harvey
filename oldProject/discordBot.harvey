@@ -1,4 +1,4 @@
-<"
+
 <sayHello <string hello>>
 
 
@@ -60,4 +60,3 @@
 <after <Arrowfunc input <body <sendOut  <string "Promises successful">>>>>
 <error <Arrowfunc input <body <sendOut <add <string"There was a error "> <var input>>>>>>
 <call client.login <var TOKEN>>
-">

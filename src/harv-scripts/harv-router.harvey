@@ -10,7 +10,12 @@
     >>
     <letsmake Root document.body>
     <assign Root.innerHTML <string "">>
+
     <call history.pushState <string ""> <string ""> <var body>>
+
+    <"just console it if for now">
+    <sendOut <add <string "%c[Harv-Script]"> <string "%c - Page location changed to "> <var window.location.pathname> <string "!">> <string "color:#00B5E2"> <string "color:white">>
+  
     <call ReturnFunc>
   >>>
 
@@ -25,6 +30,7 @@
     <letsmake Root document.body>
     <assign Root.innerHTML <string "">>
     <call history.pushState <string ""> <string ""> <var window.location.pathname>>
+    
     <call ReturnFunc>
   >>>
 

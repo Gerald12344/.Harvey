@@ -323,9 +323,8 @@ function codeGenerator(node) {
         case 'sendOut':
 
           let inputs = (node.arguments.map(codeGenerator)[0]);
-          if (node.arguments.map(codeGenerator).includes('args')) {
-            let args = node.arguments.map(codeGenerator).unshift()
-            return (`console.log(${inputs}(${args.join(',')}))`)
+          if (node.arguments.map(codeGenerator).length > 1) {
+            return (`console.log(${(node.arguments.map(codeGenerator)).join(",")})`)
           } else {
             return (`console.log(${inputs})`)
           }
@@ -406,6 +405,12 @@ function codeGenerator(node) {
           return (`${node.arguments.map(codeGenerator)[0]}[${node.arguments.map(codeGenerator)[1]}]`)
         case 'concat':
           return (`${node.arguments.map(codeGenerator).join('')}`)
+        case 'null':
+          return (`null`)
+        case 'throwError':
+          return (`throw new Error(${node.arguments.map(codeGenerator).join('')})`)
+        case 'delete':
+          return (`delete ${node.arguments.map(codeGenerator).join('')}`)
       }
       if (!(commands[node.callee.name] === undefined)) {
         if (pluginDependecies[node.callee.name] === undefined) {
@@ -414,6 +419,7 @@ function codeGenerator(node) {
             FileDependencies.push(commands[node.callee.name].Dependencies())
           }
         }
+
         return commands[node.callee.name].Command(node.arguments.map(codeGenerator))
       }
 
@@ -538,14 +544,24 @@ async function compiler(input) {
   }
   let MainOut = output
   if (settings.obuscateOutput) {
+    if (settings.debug) {
+      logger.debug(`Obuscating and minifying output!`)
+    }
     //console.log(Prepack.prepackSources([{filePath:'MainOutput', fileContents:JavaScriptObfuscator.obfuscate(output)}]))
     MainOut = (JavaScriptObfuscator.obfuscate(output))
   }
 
+
+  if (settings.debug) {
+    logger.debug(`Writing to build file!`)
+  }
   fs.writeFileSync(`./${settings.outputFolder}/${settings.outputFileName}`, headers.headers + '\n* Harvey Programming Compiled Stuff, you touch you break \n* For lisencing and for copy right stuff please check the legal stuff below \n* This is the compiled file and is optimised and obuscated if you want to see the compiled source code look at CompiledJS.js \n* --[[Code will start soon I promise]]-- \n* Look away its hard to understand. \n*/\n' + MainOut, (err) => {
     logger.error('Yikes, Error writing to ouput file.');
     process.exit(1)
   });
+  if (settings.debug) {
+    logger.debug(`Bundling all external modules!`)
+  }
   await browserifyModules()
   console.log('\x1b[34m', 'Code Compiled.');
   console.log('\x1b[36m', '[=======================]');
@@ -557,6 +573,7 @@ async function compiler(input) {
 
 const express = require('express');
 const app = express()
+app.use(express.json())
 let lastUpdate = Date.now()
 let compileStartTime = Date.now()
 
@@ -616,9 +633,14 @@ let setupCompiler = () => {
         res.send(`${lastUpdate}`)
       })
 
+      app.post("/api/error", (req, res) => {
+        logger.error(`Web client reported error, ${req.body.data} `);
+      })
+
       app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, `../${settings.outputFolder}/index.html`));
       });
+      
       
 
     }
@@ -635,7 +657,7 @@ let restart = () => {
   setupCompiler()
 }
 watcher
-  .on('add', function(path) {logger.debug(`File added ${path}, starting recomplation`); restart()})
+  .on('add', function(path) {logger.debug(`File added ${path}, starting recomplation`); /*restart()*/})
   .on('change', function(path) {logger.debug(`File updated ${path}, starting recomplation`); restart()})
   .on('unlink', function(path) {logger.debug(`File deleted ${path}, starting recomplation`);;restart()})
   .on('error', function(error) {logger.error('Error happened', error);})

@@ -1,0 +1,41 @@
+<function News <body
+    <"Create all statefull variables here">
+
+    <letsmake <split HookOne useHookOne> <useHook 1>>
+
+    <useUpdate <Arrowfunc <body
+        <sendOut <string "Recieved update">>
+
+
+        <letsmake intervalIn <interval <Arrowfunc <body
+            <call useHookOne <call Date.now>>
+        >> 1000>>
+
+        <reply <Arrowfunc <body
+            <call clearInterval intervalIn> 
+        >>>
+
+    >> <array>>
+
+    <render <string "body">
+
+        <div <empty> <string "ContentArea">
+            <hOne <string "News">>
+            <hOne <var HookOne>>
+            <hOne <array <string "hi "> <var HookOne> <string " What did you learn at school? "> <var HookOne>> >
+        >
+        
+        <"Now add some sass">
+        <style <scss "
+            .ContentArea{
+                margin-top:60px;
+
+                & > h1,p{
+                    text-align:center;
+                }
+            }
+        ">
+        <empty>>
+    >
+
+>>

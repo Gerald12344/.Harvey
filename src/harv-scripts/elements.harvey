@@ -1,23 +1,35 @@
 <function element type text id parent className <body
   <letsmake newElement <call document.createElement type>>
-  <if <equal <call document.getElementById <var id>> null> <body 
-    <assign newElement.innerHTML <var text>>
-    <assign newElement.id <var id>>
-    <letsmake FoundParent <call document.getElementById parent>>
-    <if <equal <var parent> <string "body">> <body
-      <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
-    >>
-    <if <equal <var parent> <string "head">> <body
-      <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
-    >>
-    <call FoundParent.appendChild <var newElement>>
+
+  <letsmake parentIn <itterate componentHashTree parent>>
+  <assign newElement.innerHTML <var text>>
+
+  <if <notequal parentIn <undefined>> <body
+    <call parentIn.appendChild <var newElement>>
   >>
-  <if <notequal <call document.getElementById <var id>> null> <body 
-    <assign newElement.innerHTML text>
+
+
+  <if <equal parentIn <undefined>> <body
+    <if <equal <call document.getElementById <var id>> null> <body 
+      <letsmake FoundParent <call document.getElementById parent>>
+      <if <equal <var parent> <string "body">> <body
+        <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
+      >>
+      <if <equal <var parent> <string "head">> <body
+        <assign FoundParent <itterate <call document.getElementsByTagName parent> 0>>
+      >>
+      <call FoundParent.appendChild <var newElement>>
+    >>
+    <if <notequal <call document.getElementById <var id>> null> <body 
+      <assign newElement.innerHTML text>
+    >>
   >>
-  <if <notequal className "undefined"> <body
+
+  <if <and <notequal className <undefined>> <notequal className <string "">> > <body
     <assign newElement.className className>
   >>
+
+  <assign <itterate componentHashTree id> <var newElement>>
   <reply <var newElement>>
 
 >>
@@ -36,8 +48,15 @@
   >>
 >>
 
-<function removeComponents ArrayIn <body 
+<function removeComponents ArrayIn UseEffects <body 
   <forArray ArrayIn <Arrowfunc e <body
     <call e.Element.remove>
   >>>
+
+  <if <notequal UseEffects <undefined>> <body
+    <forArray UseEffects <Arrowfunc e <body
+      <call e>
+    >>>
+  >>
+  
 >>

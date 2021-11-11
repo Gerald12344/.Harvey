@@ -80,6 +80,18 @@
         "case": "flatten",
         "file": "HS5/flatten.js"
       },
+      {
+        "case": "type",
+        "file": "HS5/typeof.js"
+      },
+      {
+        "case": "try",
+        "file": "HS5/try.js"
+      },
+      {
+        "case": "split",
+        "file": "HS5/destruc.js"
+      },
       
 
 
@@ -131,6 +143,19 @@
       {
         "case": "footer",
         "file": "HS5/HTML_Tags/footer.js"
+      },
+
+      {
+        "case": "useUpdate",
+        "file": "HS5/HTML_Tags/useUpdate.js"
+      },
+      {
+        "case": "useHook",
+        "file": "HS5/HTML_Tags/useHook.js"
+      },
+      {
+        "case": "hookFunction",
+        "file": "HS5/HTML_Tags/hookFunction.js"
       }
 
     ]
