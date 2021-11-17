@@ -1,7 +1,6 @@
-// A simple way to add js comments
 module.exports = {
     Command: function(input){
-      return(`/*${input}*/`)
+      return(`typeof ${input[0]}`)
     },
     Dependencies: function(){
       return(false)

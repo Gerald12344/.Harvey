@@ -2,11 +2,65 @@
     <reply <stateFulVar defaultState>>
 >>
 
+<function generateStringFromReactVar arrayIn <body
+    <letsmake output <array>>
+
+    <call arrayIn.forEach <Arrowfunc e <body
+        <if <equal <string "object"> <typeof e>> <body
+            <call output.push e.aInternal>
+            <reply>
+        >>
+        <call output.push e>
+    >>>
+
+    <reply <call output.join <string "">>>
+>>
+
+<function booleanComponentRendering boolean component variables <body
+    <letmake cleanup <undefined>>
+    <function updateSettingsCycle <body
+        <if <equal boolean.aInternal <true>> <body
+            <assign cleanup <call <var component> <args variables> >>
+            <reply>  
+        >>
+        <if <equal boolean.aInternal <false>> <body
+            <if <notequal <typeof cleanup> <string "undefined">> <body
+                <call cleanup>
+            >>     
+            <reply>      
+        >>
+        <sendOut <add <string "%c[Harv-Script]"> <string "%c - Failed, incorrect use of usePortal, the first input must be a hook, that is a boolean!">> <string "color:#00B5E2"> <string "color:white">>
+        <call logError <string "Failed, incorrect use of usePortal, the first input must be a hook,  that is a boolean!">>
+    >>
+    <MultiState boolean <Arrowfunc value <body
+        <call updateSettingsCycle>
+    >>>
+    <call updateSettingsCycle>
+>>
+
 <function ReactfulElement ElementType reactVar parent UUID ClassName <body
     <if <equal UUID <undefined>> <body
         <assign UUID <uuid>>
     >>
-    
+
+    <letsmake reactfulVars <array>>
+    <letsmake reactfulClassVars <array>>
+
+    <if <call Array.isArray reactVar> <body
+        <call reactVar.forEach <Arrowfunc e <body
+            <if <equal <string "object"> <typeof e> > <body
+                <call reactfulVars.push e>
+            >>
+        >>>
+    >>
+    <if <call Array.isArray ClassName> <body
+        <call ClassName.forEach <Arrowfunc e <body
+            <if <equal <string "object"> <typeof e> > <body
+                <call reactfulClassVars.push e>
+            >>
+        >>>
+    >>
+
     <if <equal <string "string"> <typeof reactVar> > <body
         <if <equal ClassName <undefined>> <body
             <assign <var ClassName> <var <object>>>
@@ -19,10 +73,22 @@
         <letsmake Element <call element <var ElementType> <var reactVar> <var UUID> <var parent> <var ClassName.aInternal>>>
         <letsmake returnObj <object>>
 
-        <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
-            <MultiState ClassName <Arrowfunc value <body
-                <assign Element.className value>
+        <if <call Array.isArray ClassName> <body
+            <letsmake text <call generateStringFromReactVar ClassName>>
+            <assign Element.className text>
+            <call reactfulClassVars.forEach <Arrowfunc e <body
+                <MultiState e <Arrowfunc value <body
+                    <letsmake text <call generateStringFromReactVar ClassName>>
+                    <assign Element.className text>
+                >>>
             >>>
+        >>
+        <if <equal <call Array.isArray ClassName> <false>> <body
+            <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
+                <MultiState ClassName <Arrowfunc value <body
+                    <assign Element.className value>
+                >>>
+            >>
         >>
         <assign <itterate returnObj <string "UUID">> UUID>
         <assign <itterate returnObj <string "Element">> Element>
@@ -32,18 +98,41 @@
     <if <equal ClassName <undefined>> <body
         <assign <var ClassName> <var <object>>>
     >>
+    <letsmake Element>
 
-
-    <letsmake Element <call element <var ElementType> <var reactVar.aInternal> <var UUID> <var parent> <var ClassName.aInternal>>>
-
-    <MultiState reactVar <Arrowfunc value <body
-        <assign Element.innerHTML value>
-    >>>
-
-    <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
-        <MultiState ClassName <Arrowfunc value <body
-            <assign Element.className value>
+    <if <call Array.isArray reactVar> <body
+        <letsmake text <call generateStringFromReactVar reactVar>>
+        <assign Element <call element <var ElementType> <var text> <var UUID> <var parent> <var ClassName.aInternal>>>
+        <call reactfulVars.forEach <Arrowfunc e <body
+            <MultiState e <Arrowfunc value <body
+                <letsmake text <call generateStringFromReactVar reactVar>>
+                <assign Element.innerHTML text>
+            >>>
         >>>
+    >>
+    <if <equal <call Array.isArray reactVar> <false>> <body
+        <assign Element <call element <var ElementType> <var reactVar.aInternal> <var UUID> <var parent> <var ClassName.aInternal>>>
+        <MultiState reactVar <Arrowfunc value <body
+            <assign Element.innerHTML value>
+        >>>
+    >>
+
+    <if <call Array.isArray ClassName> <body
+        <letsmake text <call generateStringFromReactVar ClassName>>
+        <assign Element.className text>
+        <call reactfulClassVars.forEach <Arrowfunc e <body
+            <MultiState e <Arrowfunc value <body
+                <letsmake text <call generateStringFromReactVar ClassName>>
+                <assign Element.className text>
+            >>>
+        >>>
+    >>
+    <if <equal <call Array.isArray ClassName> <false>> <body
+        <if <and <equal <string "object"> <typeof ClassName> > <notequal <var ClassName.aListener> <undefined>>> <body
+            <MultiState ClassName <Arrowfunc value <body
+                <assign Element.className value>
+            >>>
+        >>
     >>
 
     <letsmake returnObj <object>>

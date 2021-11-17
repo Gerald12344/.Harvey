@@ -14,6 +14,7 @@
 
    "pluginsFolder":"plugins",
    "pluginsSettings": "plugins.json",
+   "packagesFolder": "packages",
 
    "dev":true,
    "watchmode":true,

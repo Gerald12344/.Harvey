@@ -2,6 +2,7 @@
 
     <"First thing first estantaiate the render class and portal it to the parent">
     <render <var inputParent>
+
         <footer <empty> <string "footer-distributed"> 
             <div <empty> <string "footer-left">
                 <hThree <string "Harvey Randall"> <empty>>
@@ -14,6 +15,7 @@
                 >
                 <p <string "Harvey Randall ©2020-2021"> <string "footer-company-name">>
             >
+
 
             <div <empty> <string "footer-center">
                 <hThree <string "“If its not broken do not fix it”"> <string "italis">>

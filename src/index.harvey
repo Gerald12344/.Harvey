@@ -1,26 +1,28 @@
 <"Ok first website written entirely in .harvey">
+<string "use strict">
 
 <"First thing first make sure we need to get all of the Harvey Framework functions">
 <iWant "./src/harv-scripts/index.harvey">
-<iNeed "axios">
+<call Debugger <true>>
+
+<"Next load all bundles!">
+<letsmake axios <iNeed "axios">>
 
 
 <"To save on data transfers all components are compiled once only">
 <iWant "./src/pages/ComponentPreImportor.harvey">
 
-<"Request Homepage">
-<iWant "./src/pages/AppEntry.harvey">
-
-<call generateModernTemplate <string "Test string %{test|Default value}% more tests %{test2|Default value dfgjkdjkfg}%">>
-
 
 <" We start with just the homepage">
 <function RouterRoot <body
+  <"First import global CSS">
+  <call GlobalCSS <string "body">>
 
   <"We import the Nav Bar component">
   <call NavBarMaker <string "body">>
 
   <"Router points">
+  <call RouterPoint <string "/News"> <true> <var News>>
   <call RouterPoint <string "/"> <true> <var Homepage>>
 
 

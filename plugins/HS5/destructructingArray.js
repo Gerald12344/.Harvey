@@ -1,8 +1,8 @@
 module.exports = {
     Command: function (input) {
-        return `${input[0]}.forEach(${input[1]})`;
+        return (`...${input.join(",")}`)
     },
     Dependencies: function () {
-        return(false);
-    },
-};
+        return (false)
+    }
+}

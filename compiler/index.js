@@ -322,9 +322,8 @@ function codeGenerator(node) {
         case 'sendOut':
 
           let inputs = (node.arguments.map(codeGenerator)[0]);
-          if (node.arguments.map(codeGenerator).includes('args')) {
-            let args = node.arguments.map(codeGenerator).unshift()
-            return (`console.log(${inputs}(${args.join(',')}))`)
+          if (node.arguments.map(codeGenerator).length > 1) {
+            return (`console.log(${(node.arguments.map(codeGenerator)).join(",")})`)
           } else {
             return (`console.log(${inputs})`)
           }
@@ -354,8 +353,8 @@ function codeGenerator(node) {
           return (`let ${(node.arguments.map(codeGenerator)[0]).replace('"', '').replace('"', '')} = ${inputing}`)
 
         case 'object':
-          if(node.arguments.map(codeGenerator).length === 0){
-            return(`{}`)
+          if (node.arguments.map(codeGenerator).length === 0) {
+            return (`{}`)
           }
           return (`{${node.arguments.map(codeGenerator)[0]}: ${node.arguments.map(codeGenerator)[1]}}`)
         case 'if':
@@ -398,13 +397,23 @@ function codeGenerator(node) {
         case 'assign':
           return (`${node.arguments.map(codeGenerator)[0]} = ${node.arguments.map(codeGenerator)[1]}`)
         case 'string':
-          return (`'${node.arguments.map(codeGenerator).map(e => { return `${e}`.replace("/\n/g","").replace(/\s\s+/g, ' ')})}'`)
+          return (`'${node.arguments.map(codeGenerator).map(e => { return `${e}`.replace("/\n/g", "").replace(/\s\s+/g, ' ') })}'`)
         case 'array':
           return (`[${node.arguments.map(codeGenerator).join(',')}]`)
         case 'itterate':
           return (`${node.arguments.map(codeGenerator)[0]}[${node.arguments.map(codeGenerator)[1]}]`)
         case 'concat':
           return (`${node.arguments.map(codeGenerator).join('')}`)
+        case 'null':
+          return (`null`)
+        case 'throwError':
+          return (`throw new Error(${node.arguments.map(codeGenerator).join('')})`)
+        case 'delete':
+          return (`delete ${node.arguments.map(codeGenerator).join('')}`)
+        case 'package':
+          let data = fs.readFileSync(settings.packagesFolder+"/"+ node.arguments.map(codeGenerator)[0].replace('"', '')+"/index.harvey".replace('"', ''), 'utf-8')
+          let response = CompiledOtherFiles(data)
+          return (response)
       }
       if (!(commands[node.callee.name] === undefined)) {
         if (pluginDependecies[node.callee.name] === undefined) {
@@ -413,6 +422,7 @@ function codeGenerator(node) {
             FileDependencies.push(commands[node.callee.name].Dependencies())
           }
         }
+
         return commands[node.callee.name].Command(node.arguments.map(codeGenerator))
       }
 
@@ -455,8 +465,8 @@ function uniq(a) {
     return seen.hasOwnProperty(item) ? false : (seen[item] = true);
   });
 }
-function browserifyModules(){
-  if(settings.browserify){
+function browserifyModules() {
+  if (settings.browserify) {
     var b = browserify();
     modules.forEach((e) => {
       b.require(e)
@@ -484,7 +494,7 @@ function browserifyModules(){
       })
     })
   }
-  
+
 }
 
 var JavaScriptObfuscator = require('javascript-obfuscator');
@@ -537,14 +547,25 @@ async function compiler(input) {
   }
   let MainOut = output
   if (settings.obuscateOutput) {
+    if (settings.debug) {
+      logger.debug(`Obuscating and minifying output!`)
+    }
     //console.log(Prepack.prepackSources([{filePath:'MainOutput', fileContents:JavaScriptObfuscator.obfuscate(output)}]))
-    MainOut = (JavaScriptObfuscator.obfuscate(output))
+    MainOut = (JavaScriptObfuscator.obfuscate(output, {
+    }))
   }
 
+
+  if (settings.debug) {
+    logger.debug(`Writing to build file!`)
+  }
   fs.writeFileSync(`./${settings.outputFolder}/${settings.outputFileName}`, headers.headers + '\n* Harvey Programming Compiled Stuff, you touch you break \n* For lisencing and for copy right stuff please check the legal stuff below \n* This is the compiled file and is optimised and obuscated if you want to see the compiled source code look at CompiledJS.js \n* --[[Code will start soon I promise]]-- \n* Look away its hard to understand. \n*/\n' + MainOut, (err) => {
     logger.error('Yikes, Error writing to ouput file.');
     process.exit(1)
   });
+  if (settings.debug) {
+    logger.debug(`Bundling all external modules!`)
+  }
   await browserifyModules()
   console.log('\x1b[34m', 'Code Compiled.');
   console.log('\x1b[36m', '[=======================]');
@@ -556,23 +577,24 @@ async function compiler(input) {
 
 const express = require('express');
 const app = express()
+app.use(express.json())
 let lastUpdate = Date.now()
 let compileStartTime = Date.now()
 
 let setupCompiler = () => {
   app.get('/api/recompiling', (req, res) => {
-      res.send(`${compileStartTime}`)
+    res.send(`${compileStartTime}`)
   })
   compileStartTime = Date.now()
   fs.readFile(`./${settings.inputFolder}/${settings.inputFile}`, 'utf8', async (err, data) => {
     let input = data
-    try{
+    try {
       let CompiledJS = await compiler(input)
-    }catch(e){
+    } catch (e) {
       logger.error(e)
       logger.warn("FATAL COMPLATION ERROR")
     }
-    
+
     if (settings.evalOnCompile) {
       logger.warn(`Running with in a eval loop() for production builds please use ./${settings.outputFolder}/${settings.outputFileName}`)
       if (settings.debug) {
@@ -588,19 +610,19 @@ let setupCompiler = () => {
     }
     lastUpdate = Date.now()
     if (settings.dev === true) {
-      let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`).replace(/<!-- {{%Bundle%}} -->/g,  `<script src="./packages/HarvScript_Bundle_1.js"></script>`)
+      let text = fs.readFileSync(`./${settings.inputFolder}/public/index.html`, 'utf8').replace(/%build%/g, `${settings.outputFileName}`).replace(/%public%/g, `./public`).replace(/<!-- {{%Bundle%}} -->/g, `<script src="./packages/HarvScript_Bundle_1.js"></script>`)
 
-      text = text +  fs.readFileSync(`./compiler/devfiles.html`, 'utf8')
+      text = text + fs.readFileSync(`./compiler/devfiles.html`, 'utf8')
 
       if (!fs.existsSync(`${settings.outputFolder}/public`)) {
         fs.mkdirSync(`${settings.outputFolder}/public`);
       }
 
-    
+
 
       //fs.writeFileSync(`./${settings.outputFolder}/devfiles.js`, fs.readFileSync(`./compiler/devfiles.js`, 'utf8'));
 
-      fs.writeFileSync(`./${settings.outputFolder}/index.html`, text.replace(/\r?\n|\r/g,""));
+      fs.writeFileSync(`./${settings.outputFolder}/index.html`, text.replace(/\r?\n|\r/g, ""));
 
       const dir = fs.opendirSync(`${settings.inputFolder}/public/imports`)
       let dirent
@@ -615,10 +637,15 @@ let setupCompiler = () => {
         res.send(`${lastUpdate}`)
       })
 
+      app.post("/api/error", (req, res) => {
+        logger.error(`Web client reported error, ${req.body.data} `);
+      })
+
       app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, `../${settings.outputFolder}/index.html`));
       });
-      
+
+
 
     }
 
@@ -627,16 +654,16 @@ let setupCompiler = () => {
 setupCompiler()
 var chokidar = require('chokidar');
 
-var watcher = chokidar.watch(`./${settings.inputFolder}`, {ignored: /^\./, persistent: true});
+var watcher = chokidar.watch(`./${settings.inputFolder}`, { ignored: /^\./, persistent: true });
 let startTime = Date.now()
 let restart = () => {
-  if(Date.now()-3000 < startTime){return}
+  if (Date.now() - 5000 < startTime) { return }
   setupCompiler()
 }
 watcher
-  .on('add', function(path) {logger.debug(`File added ${path}, starting recomplation`); restart()})
-  .on('change', function(path) {logger.debug(`File updated ${path}, starting recomplation`); restart()})
-  .on('unlink', function(path) {logger.debug(`File deleted ${path}, starting recomplation`);;restart()})
-  .on('error', function(error) {logger.error('Error happened', error);})
+  .on('add', function (path) { logger.debug(`File added ${path}, starting recomplation`); restart() })
+  .on('change', function (path) { logger.debug(`File updated ${path}, starting recomplation`); restart() })
+  .on('unlink', function (path) { logger.debug(`File deleted ${path}, starting recomplation`);; restart() })
+  .on('error', function (error) { logger.error('Error happened', error); })
 
 app.listen(3000, () => logger.debug('App listening on port 3000!'));

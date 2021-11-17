@@ -20,6 +20,7 @@
   "dependencies": {
     "@assemblyscript/loader": "^0.17.7",
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "browserify": "^17.0.0",
     "chokidar": "^3.5.1",
     "domelementtype": "^2.2.0",

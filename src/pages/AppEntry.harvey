@@ -2,11 +2,13 @@
 <function Homepage <body
     <"declare states at the top">
 
+
      <render <string "body">
+
 
        <div <empty> <string "centerDiv">
             <hOne <string "Harvey Randall"> <string "CenterPage">>
-            <p <string "Creating the Next Generation of Computer Science"> <string "CenterPage">>
+            <p <string "Creating the Next Generation of Computer Science."> <string "CenterPage">>
         > 
 
         <div <empty> <string "underMainDiv">
@@ -37,7 +39,6 @@
             <call ProjectCards parent <string "First Website"> <string "another test">>
         >
         
-
 
 
         <style <scss "
@@ -149,6 +150,8 @@
             }
         "> <empty>>
     >
+
+
 
 
 >>
